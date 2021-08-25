@@ -31,7 +31,6 @@ project(mrhcore VERSION 1.0
                 DESCRIPTION "MRH core platform executable"
                 LANGUAGES CXX)
 
-
 #########################################################################
 #
 #  PATHS
@@ -64,45 +63,45 @@ set(SRC_DIR_PATH "${CMAKE_SOURCE_DIR}/src/")
 
 set(SRC_LIST_PROCESS "${SRC_DIR_PATH}/Process/ServicePool/User/UserService.cpp"
                      "${SRC_DIR_PATH}/Process/ServicePool/User/UserService.h"
-					 "${SRC_DIR_PATH}/Process/ServicePool/User/UserServicePool.cpp"
-					 "${SRC_DIR_PATH}/Process/ServicePool/User/UserService.h"
-					 "${SRC_DIR_PATH}/Process/ServicePool/Platform/PlatformService.cpp"
-					 "${SRC_DIR_PATH}/Process/ServicePool/Platform/PlatformService.h"
-					 "${SRC_DIR_PATH}/Process/ServicePool/Platform/PlatformServicePool.cpp"
-					 "${SRC_DIR_PATH}/Process/ServicePool/Platform/PlatformServicePool.h"
-					 "${SRC_DIR_PATH}/Process/ServicePool/PoolCondition.cpp"
-					 "${SRC_DIR_PATH}/Process/ServicePool/PoolCondition.h"
-					 "${SRC_DIR_PATH}/Process/ServicePool/PoolEvents.cpp"
-					 "${SRC_DIR_PATH}/Process/ServicePool/PoolEvents.h"
-					 "${SRC_DIR_PATH}/Process/ServicePool/PoolService.cpp"
-					 "${SRC_DIR_PATH}/Process/ServicePool/PoolService.h"
-					 "${SRC_DIR_PATH}/Process/ServicePool/ServicePool.cpp"
-					 "${SRC_DIR_PATH}/Process/ServicePool/ServicePool.h"
-					 "${SRC_DIR_PATH}/Process/User/UserProcess.cpp"
-					 "${SRC_DIR_PATH}/Process/User/UserProcess.h"
-					 "${SRC_DIR_PATH}/Process/User/UserServiceProcess.cpp"
-					 "${SRC_DIR_PATH}/Process/User/UserServiceProcess.h"
-					 "${SRC_DIR_PATH}/Process/User/UserPermission.cpp"
-					 "${SRC_DIR_PATH}/Process/User/UserPermission.h"
-					 "${SRC_DIR_PATH}/Process/Platform/PlatformServiceProcess.cpp"
-					 "${SRC_DIR_PATH}/Process/Platform/PlatformServiceProcess.h"
-					 "${SRC_DIR_PATH}/Process/ServiceProcess.cpp"
-					 "${SRC_DIR_PATH}/Process/ServiceProcess.h"
-					 "${SRC_DIR_PATH}/Process/Process.cpp"
-					 "${SRC_DIR_PATH}/Process/Process.h"
-					 "${SRC_DIR_PATH}/Process/ProcessException.h")
+                     "${SRC_DIR_PATH}/Process/ServicePool/User/UserServicePool.cpp"
+                     "${SRC_DIR_PATH}/Process/ServicePool/User/UserService.h"
+                     "${SRC_DIR_PATH}/Process/ServicePool/Platform/PlatformService.cpp"
+                     "${SRC_DIR_PATH}/Process/ServicePool/Platform/PlatformService.h"
+                     "${SRC_DIR_PATH}/Process/ServicePool/Platform/PlatformServicePool.cpp"
+                     "${SRC_DIR_PATH}/Process/ServicePool/Platform/PlatformServicePool.h"
+                     "${SRC_DIR_PATH}/Process/ServicePool/PoolCondition.cpp"
+                     "${SRC_DIR_PATH}/Process/ServicePool/PoolCondition.h"
+                     "${SRC_DIR_PATH}/Process/ServicePool/PoolEvents.cpp"
+                     "${SRC_DIR_PATH}/Process/ServicePool/PoolEvents.h"
+                     "${SRC_DIR_PATH}/Process/ServicePool/PoolService.cpp"
+                     "${SRC_DIR_PATH}/Process/ServicePool/PoolService.h"
+                     "${SRC_DIR_PATH}/Process/ServicePool/ServicePool.cpp"
+                     "${SRC_DIR_PATH}/Process/ServicePool/ServicePool.h"
+                     "${SRC_DIR_PATH}/Process/User/UserProcess.cpp"
+                     "${SRC_DIR_PATH}/Process/User/UserProcess.h"
+                     "${SRC_DIR_PATH}/Process/User/UserServiceProcess.cpp"
+                     "${SRC_DIR_PATH}/Process/User/UserServiceProcess.h"
+                     "${SRC_DIR_PATH}/Process/User/UserPermission.cpp"
+                     "${SRC_DIR_PATH}/Process/User/UserPermission.h"
+                     "${SRC_DIR_PATH}/Process/Platform/PlatformServiceProcess.cpp"
+                     "${SRC_DIR_PATH}/Process/Platform/PlatformServiceProcess.h"
+                     "${SRC_DIR_PATH}/Process/ServiceProcess.cpp"
+                     "${SRC_DIR_PATH}/Process/ServiceProcess.h"
+                     "${SRC_DIR_PATH}/Process/Process.cpp"
+                     "${SRC_DIR_PATH}/Process/Process.h"
+                     "${SRC_DIR_PATH}/Process/ProcessException.h")
 
 set(SRC_LIST_EVENT "${SRC_DIR_PATH}/Event/Source/SourceMRHCKM.cpp"
-				   "${SRC_DIR_PATH}/Event/Source/SourceMRHCKM.h"
-				   "${SRC_DIR_PATH}/Event/Source/SourcePipe.cpp"
-				   "${SRC_DIR_PATH}/Event/Source/SourcePipe.h"
-				   "${SRC_DIR_PATH}/Event/Source/TransmissionSource.cpp"
-				   "${SRC_DIR_PATH}/Event/Source/TransmissionSource.h"
-				   "${SRC_DIR_PATH}/Event/EventQueue.cpp"
-				   "${SRC_DIR_PATH}/Event/EventQueue.h"
-				   "${SRC_DIR_PATH}/Event/Event.cpp"
-				   "${SRC_DIR_PATH}/Event/Event.h"
-				   "${SRC_DIR_PATH}/Event/EventException.h")
+                   "${SRC_DIR_PATH}/Event/Source/SourceMRHCKM.h"
+                   "${SRC_DIR_PATH}/Event/Source/SourcePipe.cpp"
+                   "${SRC_DIR_PATH}/Event/Source/SourcePipe.h"
+                   "${SRC_DIR_PATH}/Event/Source/TransmissionSource.cpp"
+                   "${SRC_DIR_PATH}/Event/Source/TransmissionSource.h"
+                   "${SRC_DIR_PATH}/Event/EventQueue.cpp"
+                   "${SRC_DIR_PATH}/Event/EventQueue.h"
+                   "${SRC_DIR_PATH}/Event/Event.cpp"
+                   "${SRC_DIR_PATH}/Event/Event.h"
+                   "${SRC_DIR_PATH}/Event/EventException.h")
 
 set(SRC_LIST_PACKAGE "${SRC_DIR_PATH}/Package/Content/PackageConfiguration.cpp"
                      "${SRC_DIR_PATH}/Package/Content/PackageConfiguration.h"
@@ -114,47 +113,47 @@ set(SRC_LIST_PACKAGE "${SRC_DIR_PATH}/Package/Content/PackageConfiguration.cpp"
                      "${SRC_DIR_PATH}/Package/Package.h"
                      "${SRC_DIR_PATH}/Package/PackageContainer.cpp"
                      "${SRC_DIR_PATH}/Package/PackageContainer.h"
-					 "${SRC_DIR_PATH}/Package/PackageException.h")
+                     "${SRC_DIR_PATH}/Package/PackageException.h")
 					 
 set(SRC_LIST_CONFIGURATION "${SRC_DIR_PATH}/Configuration/PlatformServiceList.cpp"
                            "${SRC_DIR_PATH}/Configuration/PlatformServiceList.h"
-						   "${SRC_DIR_PATH}/Configuration/UserServiceList.cpp"
-						   "${SRC_DIR_PATH}/Configuration/UserServiceList.h"
-						   "${SRC_DIR_PATH}/Configuration/UserEventRoute.cpp"
-						   "${SRC_DIR_PATH}/Configuration/UserEventRoute.h"
-						   "${SRC_DIR_PATH}/Configuration/ProtectedEventList.cpp"
-						   "${SRC_DIR_PATH}/Configuration/ProtectedEventList.h"
-						   "${SRC_DIR_PATH}/Configuration/PackageList.cpp"
-						   "${SRC_DIR_PATH}/Configuration/PackageList.h"
-						   "${SRC_DIR_PATH}/Configuration/Locale.cpp"
-						   "${SRC_DIR_PATH}/Configuration/Locale.h"
-						   "${SRC_DIR_PATH}/Configuration/CoreConfiguration.cpp"
-						   "${SRC_DIR_PATH}/Configuration/CoreConfiguration.h"
-						   "${SRC_DIR_PATH}/Configuration/ConfigurationFiles.h"
-						   "${SRC_DIR_PATH}/Configuration/ConfigurationException.h")
+                           "${SRC_DIR_PATH}/Configuration/UserServiceList.cpp"
+                           "${SRC_DIR_PATH}/Configuration/UserServiceList.h"
+                           "${SRC_DIR_PATH}/Configuration/UserEventRoute.cpp"
+                           "${SRC_DIR_PATH}/Configuration/UserEventRoute.h"
+                           "${SRC_DIR_PATH}/Configuration/ProtectedEventList.cpp"
+                           "${SRC_DIR_PATH}/Configuration/ProtectedEventList.h"
+                           "${SRC_DIR_PATH}/Configuration/PackageList.cpp"
+                           "${SRC_DIR_PATH}/Configuration/PackageList.h"
+                           "${SRC_DIR_PATH}/Configuration/Locale.cpp"
+                           "${SRC_DIR_PATH}/Configuration/Locale.h"
+                           "${SRC_DIR_PATH}/Configuration/CoreConfiguration.cpp"
+                           "${SRC_DIR_PATH}/Configuration/CoreConfiguration.h"
+                           "${SRC_DIR_PATH}/Configuration/ConfigurationFiles.h"
+                           "${SRC_DIR_PATH}/Configuration/ConfigurationException.h")
 						   
 set(SRC_LIST_INPUT_HANDLER "${SRC_DIR_PATH}/InputHandler/Component/InputPassword.cpp"
                            "${SRC_DIR_PATH}/InputHandler/Component/InputPassword.h"
-						   "${SRC_DIR_PATH}/InputHandler/Component/InputStop.cpp"
-						   "${SRC_DIR_PATH}/InputHandler/Component/InputStop.h"
-						   "${SRC_DIR_PATH}/InputHandler/Component/InputLaunch.cpp"
-						   "${SRC_DIR_PATH}/InputHandler/Component/InputLaunch.h"
-						   "${SRC_DIR_PATH}/InputHandler/InputString.cpp"
-						   "${SRC_DIR_PATH}/InputHandler/InputString.h"
-						   "${SRC_DIR_PATH}/InputHandler/InputHandler.cpp"
-						   "${SRC_DIR_PATH}/InputHandler/InputHandler.h"
-						   "${SRC_DIR_PATH}/InputHandler/InputException.h")
+                           "${SRC_DIR_PATH}/InputHandler/Component/InputStop.cpp"
+                           "${SRC_DIR_PATH}/InputHandler/Component/InputStop.h"
+                           "${SRC_DIR_PATH}/InputHandler/Component/InputLaunch.cpp"
+                           "${SRC_DIR_PATH}/InputHandler/Component/InputLaunch.h"
+                           "${SRC_DIR_PATH}/InputHandler/InputString.cpp"
+                           "${SRC_DIR_PATH}/InputHandler/InputString.h"
+                           "${SRC_DIR_PATH}/InputHandler/InputHandler.cpp"
+                           "${SRC_DIR_PATH}/InputHandler/InputHandler.h"
+                           "${SRC_DIR_PATH}/InputHandler/InputException.h")
 
 set(SRC_LIST_LOGGER "${SRC_DIR_PATH}/Logger/EventLogger.cpp"
-				    "${SRC_DIR_PATH}/Logger/EventLogger.h"
-				    "${SRC_DIR_PATH}/Logger/Logger.cpp"
-				    "${SRC_DIR_PATH}/Logger/Logger.h")
+                    "${SRC_DIR_PATH}/Logger/EventLogger.h"
+                    "${SRC_DIR_PATH}/Logger/Logger.cpp"
+                    "${SRC_DIR_PATH}/Logger/Logger.h")
 
 set(SRC_LIST_BASE "${SRC_DIR_PATH}/Timer.cpp"
-				  "${SRC_DIR_PATH}/Timer.h"
-				  "${SRC_DIR_PATH}/FilePaths.h"
-				  "${SRC_DIR_PATH}/Main.cpp"
-				  "${SRC_DIR_PATH}/Revision.h")
+                  "${SRC_DIR_PATH}/Timer.h"
+                  "${SRC_DIR_PATH}/FilePaths.h"
+                  "${SRC_DIR_PATH}/Main.cpp"
+                  "${SRC_DIR_PATH}/Revision.h")
 
 ###
 #  Library Paths
@@ -169,9 +168,8 @@ set(INCLUDE_DIR_PATH "${CMAKE_SOURCE_DIR}/include/")
 set(LIB_BIN_LIST "${LIB_DIR_PATH}/libmrhbf.a"
                  "${LIB_DIR_PATH}/libmrhvt.a")
 set(LIB_INCLUDE_LIST "${INCLUDE_DIR_PATH}/mrhshared"
-					 "${INCLUDE_DIR_PATH}/libmrhbf"
-					 "${INCLUDE_DIR_PATH}/libmrhvt")
-
+                     "${INCLUDE_DIR_PATH}/libmrhbf"
+                     "${INCLUDE_DIR_PATH}/libmrhvt")
 
 #########################################################################
 #
@@ -185,17 +183,17 @@ set(LIB_INCLUDE_LIST "${INCLUDE_DIR_PATH}/mrhshared"
 #  The target(s) to build.
 ###
 add_executable(mrhcore ${SRC_LIST_PROCESS}
-					   ${SRC_LIST_EVENT}
-					   ${SRC_LIST_PACKAGE}
-					   ${SRC_LIST_CONFIGURATION}
-					   ${SRC_LIST_INPUT_HANDLER}
-					   ${SRC_LIST_LOGGER}
-					   ${SRC_LIST_BASE})
+                       ${SRC_LIST_EVENT}
+                       ${SRC_LIST_PACKAGE}
+                       ${SRC_LIST_CONFIGURATION}
+                       ${SRC_LIST_INPUT_HANDLER}
+                       ${SRC_LIST_LOGGER}
+                       ${SRC_LIST_BASE})
 set_target_properties(mrhcore
-    		          PROPERTIES
-    		          ARCHIVE_OUTPUT_DIRECTORY ${BIN_DIR_PATH}
-    		          LIBRARY_OUTPUT_DIRECTORY ${BIN_DIR_PATH}
-    		          RUNTIME_OUTPUT_DIRECTORY ${BIN_DIR_PATH})
+                      PROPERTIES
+                      ARCHIVE_OUTPUT_DIRECTORY ${BIN_DIR_PATH}
+                      LIBRARY_OUTPUT_DIRECTORY ${BIN_DIR_PATH}
+                      RUNTIME_OUTPUT_DIRECTORY ${BIN_DIR_PATH})
 
 ###
 #  Required Libraries
