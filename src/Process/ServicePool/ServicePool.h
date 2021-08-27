@@ -121,6 +121,15 @@ protected:
     
     void StopUpdate() noexcept;
     
+    /**
+     *  Write the service pool proccess id list.
+     *
+     *  \param s_ListName The name of the pid list to write.
+     *  \param v_Pid The process ids to write.
+     */
+    
+    void WritePidList(std::string s_ListName, std::vector<pid_t> const& v_Pid) noexcept;
+    
     //*************************************************************************************
     // Recieve
     //*************************************************************************************

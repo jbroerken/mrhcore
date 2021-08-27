@@ -45,6 +45,7 @@ UserServicePool::UserServicePool()
         // Create each service to populate vector
         UserServiceList c_ServiceList;
         size_t us_PackageCount = c_ServiceList.GetPackageCount();
+        std::vector<pid_t> v_Pid;
         
         if (PackageContainer::Singleton().GetPackageCount() == 0 || us_PackageCount == 0)
         {
@@ -55,12 +56,20 @@ UserServicePool::UserServicePool()
         
         for (size_t i = 0; i < us_PackageCount; ++i)
         {
-            AddService(c_ServiceList.GetPackage(i));
+            try
+            {
+                v_Pid.emplace_back(AddService(c_ServiceList.GetPackage(i)));
+            }
+            catch (std::exception& e) // Catches all other exceptions
+            {
+                Logger::Singleton().Log(Logger::WARNING, "Failed to add user process: " +
+                                                         std::string(e.what()),
+                                        "UserServicePool.cpp", __LINE__);
+            }
         }
-    }
-    catch (ProcessException& e)
-    {
-        throw;
+        
+        // All Added, write pid list
+        WritePidList(MRH_CORE_USER_SERVICE_PID_FILE, v_Pid);
     }
     catch (ConfigurationException& e)
     {
@@ -84,7 +93,7 @@ UserServicePool::~UserServicePool() noexcept
 // Update
 //*************************************************************************************
 
-void UserServicePool::AddService(std::string const& s_PackageName)
+pid_t UserServicePool::AddService(std::string const& s_PackageName)
 {
     CoreConfiguration& c_CoreConfiguration = CoreConfiguration::Singleton();
     MRH_Uint32 u32_EventLimit = c_CoreConfiguration.GetEventLimit(CoreConfiguration::USER_SERVICE);
@@ -105,6 +114,9 @@ void UserServicePool::AddService(std::string const& s_PackageName)
                                                                             p_Condition,
                                                                             u32_EventLimit,
                                                                             c_CoreConfiguration.GetRecieveTimeoutMS(CoreConfiguration::USER_SERVICE))));
+        
+        // Oof
+        return (*(--(v_Service.end())))->GetProcess()->GetProcessID();
     }
     catch (std::exception& e) // Catches all other exceptions
     {
@@ -139,6 +151,7 @@ void UserServicePool::Reload()
         size_t us_PackageCount = c_ServiceList.GetPackageCount();
         std::string s_PackageName;
         bool b_AddService;
+        std::vector<pid_t> v_Pid;
         
         for (size_t i = 0; i < us_PackageCount; ++i)
         {
@@ -170,17 +183,31 @@ void UserServicePool::Reload()
             
             if (b_AddService == true)
             {
-                AddService(s_PackageName);
+                
+                try
+                {
+                    AddService(s_PackageName);
+                }
+                catch (std::exception& e) // Catches all other exceptions
+                {
+                    Logger::Singleton().Log(Logger::WARNING, "Failed to add user process: " +
+                                                             std::string(e.what()),
+                                            "UserServicePool.cpp", __LINE__);
+                }
             }
         }
+        
+        // Grab current pids
+        for (auto& Service : v_Service)
+        {
+            v_Pid.emplace_back(Service->GetProcess()->GetProcessID());
+        }
+        
+        WritePidList(MRH_CORE_USER_SERVICE_PID_FILE, v_Pid);
     }
     catch (ConfigurationException& e)
     {
         throw ProcessException(e.what());
-    }
-    catch (ProcessException& e)
-    {
-        throw;
     }
     catch (std::exception& e)
     {

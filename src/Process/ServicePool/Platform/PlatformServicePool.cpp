@@ -52,6 +52,7 @@ PlatformServicePool::PlatformServicePool()
         // Create each service to populate vector
         PlatformServiceList c_ServiceList;
         size_t us_ServiceCount = c_ServiceList.GetServiceCount();
+        std::vector<pid_t> v_Pid;
         
         if (us_ServiceCount == 0)
         {
@@ -96,9 +97,13 @@ PlatformServicePool::PlatformServicePool()
                                                                                         s32_RecieveTimeoutMS,
                                                                                         c_Service.b_Essential,
                                                                                         c_Service.u32_RouteID)));
+            v_Pid.emplace_back((*(--(v_Service.end())))->GetProcess()->GetProcessID());
         }
+        
+        // Write pid list
+        WritePidList(MRH_CORE_PLATFORM_SERVICE_PID_FILE, v_Pid);
     }
-    catch (ProcessException& e)
+    catch (ProcessException& e) // No individual service process check, one crashes -> All failed
     {
         throw;
     }

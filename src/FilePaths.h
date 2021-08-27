@@ -81,5 +81,21 @@
     #define MRH_CORE_INPUT_STOP_TRIGGER_FILE "Stop.mrhit"
 #endif
 
+//*************************************************************************************
+// PID Paths
+//*************************************************************************************
+
+#ifndef MRH_CORE_PID_FILE_DIR
+    #define MRH_CORE_PID_FILE_DIR "/tmp/mrhpid/"
+#endif
+
+#ifndef MRH_CORE_USER_SERVICE_PID_FILE
+    #define MRH_CORE_USER_SERVICE_PID_FILE "mrhuservice_pid"
+#endif
+
+#ifndef MRH_CORE_PLATFORM_SERVICE_PID_FILE
+    #define MRH_CORE_PLATFORM_SERVICE_PID_FILE "mrhpservice_pid"
+#endif
+
 
 #endif /* FilePaths_h */

@@ -224,3 +224,6 @@ target_compile_definitions(mrhcore PRIVATE MRH_USER_EVENT_ROUTE_FILE_PATH="/etc/
 target_compile_definitions(mrhcore PRIVATE MRH_UAPP_LAUNCH_INPUT_FILE_PATH="/var/mrhuapp/LaunchInput.txt")
 target_compile_definitions(mrhcore PRIVATE MRH_CORE_INPUT_STOP_TRIGGER_PATH="/var/mrhcore")
 target_compile_definitions(mrhcore PRIVATE MRH_CORE_INPUT_STOP_TRIGGER_FILE="Stop.mrhit")
+target_compile_definitions(mrhcore PRIVATE MRH_CORE_PID_FILE_DIR="/tmp/mrhpid/")
+target_compile_definitions(mrhcore PRIVATE MRH_CORE_USER_SERVICE_PID_FILE="mrhuservice_pid")
+target_compile_definitions(mrhcore PRIVATE MRH_CORE_PLATFORM_SERVICE_PID_FILE="mrhpservice_pid")

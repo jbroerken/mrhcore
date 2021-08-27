@@ -80,7 +80,7 @@ private:
      *  \param s_PackageName The name of the package containing the user service.
      */
     
-    void AddService(std::string const& s_PackageName);
+    pid_t AddService(std::string const& s_PackageName);
     
     //*************************************************************************************
     // Send

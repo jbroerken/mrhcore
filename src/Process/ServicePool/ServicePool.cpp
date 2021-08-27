@@ -20,6 +20,8 @@
  */
 
 // C / C++
+#include <sys/stat.h>
+#include <unistd.h>
 #include <csignal>
 
 // External
@@ -27,6 +29,7 @@
 // Project
 #include "./ServicePool.h"
 #include "../../Logger/Logger.h"
+#include "../../FilePaths.h"
 
 
 //*************************************************************************************
@@ -35,6 +38,30 @@
 
 ServicePool::ServicePool() : b_Run(false)
 {
+    // Create pid dir
+    struct stat c_Stat;
+    size_t us_Pos = 0;
+    std::string s_Full(MRH_CORE_PID_FILE_DIR);
+    std::string s_Current = "";
+    
+    while ((us_Pos = s_Full.find_first_of('/', us_Pos + 1)) != std::string::npos)
+    {
+        s_Current = s_Full.substr(0, us_Pos);
+        
+        if (stat(s_Current.c_str(), &c_Stat) == 0 && S_ISDIR(c_Stat.st_mode))
+        {
+            continue;
+        }
+        
+        if (mkdir(s_Current.c_str(), 0777) < 0) // @TODO: Restricting might be better
+        {
+            Logger::Singleton().Log(Logger::WARNING, "Failed to create pid path: " + s_Current,
+                                    "ServicePool.cpp", __LINE__);
+            break;
+        }
+    }
+    
+    // Thread stuff
     try
     {
         p_Condition = std::make_shared<PoolCondition>();
@@ -141,6 +168,39 @@ void ServicePool::CheckServiceStatus() noexcept
             ++Service;
         }
     }
+}
+
+void ServicePool::WritePidList(std::string s_ListName, std::vector<pid_t> const& v_Pid) noexcept
+{
+    if (v_Pid.size() == 0 || s_ListName.size() == 0)
+    {
+        return;
+    }
+    
+    s_ListName = MRH_CORE_PID_FILE_DIR + s_ListName;
+    std::ofstream f_File(s_ListName);
+    
+    if (f_File.is_open() == false)
+    {
+        Logger::Singleton().Log(Logger::WARNING, "Failed to open pid file: " + s_ListName,
+                                "ServicePool.cpp", __LINE__);
+        return;
+    }
+    
+    for (size_t i = 0; i < v_Pid.size(); ++i)
+    {
+        f_File << std::to_string(v_Pid[i]);
+        
+        if (i < (v_Pid.size() - 1))
+        {
+            f_File << std::endl;
+        }
+    }
+    
+    f_File.close();
+    
+    Logger::Singleton().Log(Logger::WARNING, "Wrote pid file: " + s_ListName,
+                            "ServicePool.cpp", __LINE__);
 }
 
 //*************************************************************************************
