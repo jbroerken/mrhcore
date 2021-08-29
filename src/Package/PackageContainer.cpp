@@ -31,6 +31,7 @@
 // Project
 #include "./PackageContainer.h"
 #include "./PackagePaths.h"
+#include "../Configuration/CoreConfiguration.h"
 #include "../Configuration/PackageList.h"
 #include "../Logger/Logger.h"
 
@@ -73,6 +74,8 @@ void PackageContainer::Reload() noexcept
     try
     {
         std::vector<std::string> v_Path = PackageList().GetPackages();
+        v_Path.emplace_back(CoreConfiguration::Singleton().GetHomePackagePath()); // Add extra
+        
         struct stat c_Stat;
         size_t p_Length[2] =
         {

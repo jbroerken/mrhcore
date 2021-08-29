@@ -185,7 +185,7 @@ void ServicePool::WritePidList(std::string s_ListName, std::vector<pid_t> const&
     }
     
     s_ListName = MRH_CORE_PID_FILE_DIR + s_ListName;
-    std::ofstream f_File(s_ListName);
+    std::ofstream f_File(s_ListName, std::ios::trunc);
     
     if (f_File.is_open() == false)
     {

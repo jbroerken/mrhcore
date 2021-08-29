@@ -256,7 +256,7 @@ int main(int argc, char* argv[])
     }
     catch (InputException& e)
     {
-        c_Logger.Log(Logger::ERROR, "Input (" + e.module2() + "):" + e.what2(), "Main.cpp", __LINE__);
+        c_Logger.Log(Logger::ERROR, "Input (" + e.module2() + "): " + e.what2(), "Main.cpp", __LINE__);
         return EXIT_FAILURE;
     }
     catch (std::exception& e)
