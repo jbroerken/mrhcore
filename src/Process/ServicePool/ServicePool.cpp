@@ -31,6 +31,11 @@
 #include "../../Logger/Logger.h"
 #include "../../FilePaths.h"
 
+// Pre-defined
+#ifndef MRH_CORE_CREATE_PID_DIR
+    #define MRH_CORE_CREATE_PID_DIR 0
+#endif
+
 
 //*************************************************************************************
 // Constructor / Destructor
@@ -39,6 +44,7 @@
 ServicePool::ServicePool() : b_Run(false)
 {
     // Create pid dir
+#if MRH_CORE_CREATE_PID_DIR > 0
     struct stat c_Stat;
     size_t us_Pos = 0;
     std::string s_Full(MRH_CORE_PID_FILE_DIR);
@@ -60,6 +66,7 @@ ServicePool::ServicePool() : b_Run(false)
             break;
         }
     }
+#endif
     
     // Thread stuff
     try

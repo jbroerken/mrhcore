@@ -227,3 +227,4 @@ target_compile_definitions(mrhcore PRIVATE MRH_CORE_INPUT_STOP_TRIGGER_FILE="Sto
 target_compile_definitions(mrhcore PRIVATE MRH_CORE_PID_FILE_DIR="/tmp/mrhpid/")
 target_compile_definitions(mrhcore PRIVATE MRH_CORE_USER_SERVICE_PID_FILE="mrhuservice_pid")
 target_compile_definitions(mrhcore PRIVATE MRH_CORE_PLATFORM_SERVICE_PID_FILE="mrhpservice_pid")
+target_compile_definitions(mrhcore PRIVATE MRH_CORE_CREATE_PID_DIR="0")
