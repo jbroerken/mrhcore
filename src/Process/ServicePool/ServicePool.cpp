@@ -206,7 +206,7 @@ void ServicePool::WritePidList(std::string s_ListName, std::vector<pid_t> const&
     
     f_File.close();
     
-    Logger::Singleton().Log(Logger::WARNING, "Wrote pid file: " + s_ListName,
+    Logger::Singleton().Log(Logger::INFO, "Wrote pid file: " + s_ListName,
                             "ServicePool.cpp", __LINE__);
 }
 
