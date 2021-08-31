@@ -235,6 +235,7 @@ int main(int argc, char* argv[])
     PlatformServicePool* p_PlatformPool;
     InputHandler* p_Input;
     CoreConfiguration& c_CoreConfiguration = CoreConfiguration::Singleton();
+    bool b_ComponentFailed = true;
     
     try
     {
@@ -248,27 +249,50 @@ int main(int argc, char* argv[])
         p_Input->UpdateLaunch(c_CoreConfiguration.GetHomePackagePath(),
                               "", /* No input, auto start */
                               c_CoreConfiguration.GetHomePackageStartupLaunchCommandID());
+        
+        // No failure
+        b_ComponentFailed = false;
     }
     catch (ProcessException& e)
     {
-        c_Logger.Log(Logger::ERROR, "Process:" + e.what2(), "Main.cpp", __LINE__);
-        return EXIT_FAILURE;
+        c_Logger.Log(Logger::ERROR, "Process:" + e.what2(),
+                     "Main.cpp", __LINE__);
     }
     catch (InputException& e)
     {
-        c_Logger.Log(Logger::ERROR, "Input (" + e.module2() + "): " + e.what2(), "Main.cpp", __LINE__);
-        return EXIT_FAILURE;
+        c_Logger.Log(Logger::ERROR, "Input (" + e.module2() + "): " + e.what2(),
+                     "Main.cpp", __LINE__);
     }
     catch (std::exception& e)
     {
-        c_Logger.Log(Logger::ERROR, "Unknown source: " + std::string(e.what()), "Main.cpp", __LINE__);
+        c_Logger.Log(Logger::ERROR, "Unknown source: " + std::string(e.what()),
+                     "Main.cpp", __LINE__);
+    }
+    
+    if (b_ComponentFailed == true)
+    {
+        c_Logger.Log(Logger::INFO, "Component setup failed, stopping core.",
+                     "Main.cpp", __LINE__);
+        
+        // Delete the two components which have child processes to kill the children
+        if (p_PlatformPool != NULL)
+        {
+            delete p_PlatformPool;
+        }
+        
+        if (p_UserPool != NULL)
+        {
+            delete p_UserPool;
+        }
+        
         return EXIT_FAILURE;
     }
     
     // Wait for platform pool service availability
     if (p_PlatformPool->GetAllRunning() == false)
     {
-        c_Logger.Log(Logger::INFO, "Not all platform services available, waiting for startup", "Main.cpp", __LINE__);
+        c_Logger.Log(Logger::INFO, "Not all platform services available, waiting for startup",
+                     "Main.cpp", __LINE__);
         Timer s_Timer;
         
         while (p_PlatformPool->GetAllRunning() == false && i_LastSignal != SIGTERM)
@@ -276,7 +300,8 @@ int main(int argc, char* argv[])
             // Force quit if timer exceeded
             if (s_Timer.GetTimePassedSeconds() >= u32_ServiceStartupTimeoutS)
             {
-                c_Logger.Log(Logger::ERROR, "Platform service startup timeout, stopping core!", "Main.cpp", __LINE__);
+                c_Logger.Log(Logger::ERROR, "Platform service startup timeout, stopping core!",
+                             "Main.cpp", __LINE__);
                 return EXIT_FAILURE;
             }
             
@@ -386,7 +411,8 @@ int main(int argc, char* argv[])
             if (i_UserProcessStatus > EXIT_SUCCESS && b_UserProcessIsHome == true)
             {
                 // Default crashed, stop core
-                c_Logger.Log(Logger::ERROR, "Home package crashed, stopping core!", "Main.cpp", __LINE__);
+                c_Logger.Log(Logger::ERROR, "Home package crashed, stopping core!",
+                             "Main.cpp", __LINE__);
                 break;
             }
             
@@ -443,19 +469,23 @@ int main(int argc, char* argv[])
             }
             catch (InputException& e)
             {
-                c_Logger.Log(Logger::ERROR, "Launch failed! Input (" + e.module2() + "): " + e.what2(), "Main.cpp", __LINE__);
+                c_Logger.Log(Logger::ERROR, "Launch failed! Input (" + e.module2() + "): " + e.what2(),
+                             "Main.cpp", __LINE__);
             }
             catch (PackageException& e)
             {
-                c_Logger.Log(Logger::ERROR, "Launch failed! Package (" + e.package2() + "): " + e.what2(), "Main.cpp", __LINE__);
+                c_Logger.Log(Logger::ERROR, "Launch failed! Package (" + e.package2() + "): " + e.what2(),
+                             "Main.cpp", __LINE__);
             }
             catch (ProcessException& e)
             {
-                c_Logger.Log(Logger::ERROR, "Launch failed! User Process: " + e.what2(), "Main.cpp", __LINE__);
+                c_Logger.Log(Logger::ERROR, "Launch failed! User Process: " + e.what2(),
+                             "Main.cpp", __LINE__);
             }
             catch (std::exception& e)
             {
-                c_Logger.Log(Logger::ERROR, "Launch failed! Unknown: " + std::string(e.what()), "Main.cpp", __LINE__);
+                c_Logger.Log(Logger::ERROR, "Launch failed! Unknown: " + std::string(e.what()),
+                             "Main.cpp", __LINE__);
             }
         }
     }
