@@ -120,7 +120,7 @@ protected:
                 std::shared_ptr<PoolCondition>& p_Condition,
                 MRH_Uint32 u32_EventLimit,
                 MRH_Sint32 s32_TimeoutMS,
-                bool b_Essential) noexcept;
+                bool b_Essential);
     
     /**
      *  Copy constructor. Disabled for this class.

@@ -36,12 +36,12 @@ PlatformService::PlatformService(std::shared_ptr<ServiceProcess>& p_Process,
                                  MRH_Uint32 u32_EventLimit,
                                  MRH_Sint32 s32_TimeoutMS,
                                  bool b_Essential,
-                                 MRH_Uint32 u32_RouteID) noexcept : PoolService(p_Process,
-                                                                                p_Condition,
-                                                                                u32_EventLimit,
-                                                                                s32_TimeoutMS,
-                                                                                b_Essential),
-                                                                    u32_RouteID(u32_RouteID)
+                                 MRH_Uint32 u32_RouteID) : PoolService(p_Process,
+                                                                       p_Condition,
+                                                                       u32_EventLimit,
+                                                                       s32_TimeoutMS,
+                                                                       b_Essential),
+                                                           u32_RouteID(u32_RouteID)
 {}
 
 PlatformService::~PlatformService() noexcept

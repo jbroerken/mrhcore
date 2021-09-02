@@ -34,7 +34,9 @@
 // Constructor / Destructor
 //*************************************************************************************
 
-EventQueue::EventQueue(TransmissionSource::SourceType e_Type) : p_Queue { [0 ... QueueType::QUEUE_MAX] = e_Type } // All queues should use param e_Type
+// @NOTE: Pi doesn't like [ 0 ... X ] = e_Type
+EventQueue::EventQueue(TransmissionSource::SourceType e_Type) : p_Queue { e_Type,
+                                                                          e_Type } // All queues should use param e_Type
 {}
 
 EventQueue::~EventQueue() noexcept

@@ -36,9 +36,9 @@ PoolService::PoolService(std::shared_ptr<ServiceProcess>& p_Process,
                          std::shared_ptr<PoolCondition>& p_Condition,
                          MRH_Uint32 u32_EventLimit,
                          MRH_Sint32 s32_TimeoutMS,
-                         bool b_Essential) noexcept : p_Process(p_Process),
-                                                      p_Condition(p_Condition),
-                                                      b_Essential(b_Essential)
+                         bool b_Essential) : p_Process(p_Process),
+                                             p_Condition(p_Condition),
+                                             b_Essential(b_Essential)
 {
     try
     {

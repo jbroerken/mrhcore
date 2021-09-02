@@ -34,11 +34,11 @@
 UserService::UserService(std::shared_ptr<ServiceProcess>& p_Process,
                          std::shared_ptr<PoolCondition>& p_Condition,
                          MRH_Uint32 u32_EventLimit,
-                         MRH_Sint32 s32_TimeoutMS) noexcept : PoolService(p_Process,
-                                                                          p_Condition,
-                                                                          u32_EventLimit,
-                                                                          s32_TimeoutMS,
-                                                                          false) // User services are not essential
+                         MRH_Sint32 s32_TimeoutMS) : PoolService(p_Process,
+                                                                 p_Condition,
+                                                                 u32_EventLimit,
+                                                                 s32_TimeoutMS,
+                                                                 false) // User services are not essential
 {}
 
 UserService::~UserService() noexcept

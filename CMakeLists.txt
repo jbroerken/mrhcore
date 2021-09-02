@@ -27,7 +27,7 @@ set(CMAKE_CXX_STANDARD 14)
 #  ------------
 #  General simple information about our project.
 ###
-project(mrhcore VERSION 1.0
+project(mrhcore VERSION 1.0.0
                 DESCRIPTION "MRH core platform executable"
                 LANGUAGES CXX)
 
@@ -38,12 +38,11 @@ project(mrhcore VERSION 1.0
 #########################################################################
 
 ###
-#  Binary Paths
-#  ------------
+#  Install Paths
+#  -------------
 #  The paths for our created binary file(s).
 ###
-set(BIN_DIR_PATH "${CMAKE_SOURCE_DIR}/bin/")
-file(MAKE_DIRECTORY ${BIN_DIR_PATH})
+set(BIN_INSTALL_PATH "/usr/bin/")
 
 ###
 #  Build Paths
@@ -155,22 +154,6 @@ set(SRC_LIST_BASE "${SRC_DIR_PATH}/Timer.cpp"
                   "${SRC_DIR_PATH}/Main.cpp"
                   "${SRC_DIR_PATH}/Revision.h")
 
-###
-#  Library Paths
-#  -------------
-#  The paths to the external libraries to use. 
-#  Both the binary and include paths should be set here.
-#  Add OS specific libraries in their own lists.
-###
-set(LIB_DIR_PATH "${CMAKE_SOURCE_DIR}/lib/")
-set(INCLUDE_DIR_PATH "${CMAKE_SOURCE_DIR}/include/")
-
-set(LIB_BIN_LIST "${LIB_DIR_PATH}/libmrhbf.a"
-                 "${LIB_DIR_PATH}/libmrhvt.a")
-set(LIB_INCLUDE_LIST "${INCLUDE_DIR_PATH}/mrhshared"
-                     "${INCLUDE_DIR_PATH}/libmrhbf"
-                     "${INCLUDE_DIR_PATH}/libmrhvt")
-
 #########################################################################
 #
 #  TARGET
@@ -189,19 +172,22 @@ add_executable(mrhcore ${SRC_LIST_PROCESS}
                        ${SRC_LIST_INPUT_HANDLER}
                        ${SRC_LIST_LOGGER}
                        ${SRC_LIST_BASE})
-set_target_properties(mrhcore
-                      PROPERTIES
-                      ARCHIVE_OUTPUT_DIRECTORY ${BIN_DIR_PATH}
-                      LIBRARY_OUTPUT_DIRECTORY ${BIN_DIR_PATH}
-                      RUNTIME_OUTPUT_DIRECTORY ${BIN_DIR_PATH})
 
 ###
 #  Required Libraries
 #  ------------------
 #  Libraries required by this application.
 ###
-target_link_libraries(mrhcore PUBLIC ${LIB_BIN_LIST})
-include_directories(${LIB_INCLUDE_LIST})
+set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
+set(THREADS_PREFER_PTHREAD_FLAG TRUE)
+
+find_package(Threads REQUIRED)
+find_library(libmrhbf NAMES mrhbf REQUIRED)
+find_library(libmrhvt NAMES mrhvt REQUIRED)
+
+target_link_libraries(mrhcore PUBLIC Threads::Threads)
+target_link_libraries(mrhcore PUBLIC mrhbf)
+target_link_libraries(mrhcore PUBLIC mrhvt)
 
 ###
 #  Source Definitions
@@ -228,3 +214,11 @@ target_compile_definitions(mrhcore PRIVATE MRH_CORE_PID_FILE_DIR="/tmp/mrhpid/")
 target_compile_definitions(mrhcore PRIVATE MRH_CORE_USER_SERVICE_PID_FILE="mrhuservice_pid")
 target_compile_definitions(mrhcore PRIVATE MRH_CORE_PLATFORM_SERVICE_PID_FILE="mrhpservice_pid")
 target_compile_definitions(mrhcore PRIVATE MRH_CORE_CREATE_PID_DIR=0)
+
+###
+#  Install
+#  -------
+#  Application installation.
+###
+install(TARGETS mrhcore
+        DESTINATION ${BIN_INSTALL_PATH})

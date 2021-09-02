@@ -64,7 +64,7 @@ private:
     UserService(std::shared_ptr<ServiceProcess>& p_Process,
                 std::shared_ptr<PoolCondition>& p_Condition,
                 MRH_Uint32 u32_EventLimit,
-                MRH_Sint32 s32_TimeoutMS) noexcept;
+                MRH_Sint32 s32_TimeoutMS);
                 
     /**
      *  Copy constructor. Disabled for this class.

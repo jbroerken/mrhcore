@@ -92,7 +92,7 @@ private:
                     MRH_Uint32 u32_EventLimit,
                     MRH_Sint32 s32_TimeoutMS,
                     bool b_Essential,
-                    MRH_Uint32 u32_RouteID) noexcept;
+                    MRH_Uint32 u32_RouteID);
                     
     /**
      *  Copy constructor. Disabled for this class.

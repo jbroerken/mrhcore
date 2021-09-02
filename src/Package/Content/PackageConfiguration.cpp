@@ -20,6 +20,7 @@
  */
 
 // C / C++
+#include <cstring>
 
 // External
 #include <libmrhbf.h>
@@ -105,7 +106,14 @@ namespace
 // Constructor / Destructor
 //*************************************************************************************/
 
-PackageConfiguration::PackageConfiguration(std::string const& s_ConfigurationPath) : p_Permission { [0 ... PackageConfiguration::EVENT_PERMISSION_LIST_MAX] = PackageConfiguration::u32_NoPermission },
+// @NOTE: Pi is not a fan of [ 0 ... X ] = PackageConfiguration::u32_NoPermission
+PackageConfiguration::PackageConfiguration(std::string const& s_ConfigurationPath) : p_Permission { PackageConfiguration::u32_NoPermission,
+                                                                                                    PackageConfiguration::u32_NoPermission,
+                                                                                                    PackageConfiguration::u32_NoPermission,
+                                                                                                    PackageConfiguration::u32_NoPermission,
+                                                                                                    PackageConfiguration::u32_NoPermission,
+                                                                                                    PackageConfiguration::u32_NoPermission,
+                                                                                                    PackageConfiguration::u32_NoPermission },
                                                                                      i_AppEventVersion(-1),
                                                                                      i_ServiceEventVersion(-1),
                                                                                      i_UserID(-1),
