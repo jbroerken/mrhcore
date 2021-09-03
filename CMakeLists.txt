@@ -42,7 +42,7 @@ project(mrhcore VERSION 1.0.0
 #  -------------
 #  The paths for our created binary file(s).
 ###
-set(BIN_INSTALL_PATH "/usr/bin/")
+set(BIN_INSTALL_PATH "/usr/local/bin/")
 
 ###
 #  Build Paths
@@ -200,15 +200,15 @@ target_compile_definitions(mrhcore PRIVATE MRH_LOGGER_PRINT_CLI=0)
 target_compile_definitions(mrhcore PRIVATE MRH_CORE_EVENT_LOG_FILE_PATH="/var/log/mrh/ev_mrhcore.log")
 target_compile_definitions(mrhcore PRIVATE MRH_EVENT_LOGGER_PRINT_CLI=0)
 target_compile_definitions(mrhcore PRIVATE MRH_CORE_EVENT_LOGGING=0)
-target_compile_definitions(mrhcore PRIVATE MRH_LOCALE_FILE_PATH="/etc/MRH_Locale.conf")
-target_compile_definitions(mrhcore PRIVATE MRH_CORE_CONFIGURATION_FILE_PATH="/etc/MRH_Core.conf")
-target_compile_definitions(mrhcore PRIVATE MRH_USER_SERVICE_LIST_FILE_PATH="/etc/MRH_UserServiceList.conf")
-target_compile_definitions(mrhcore PRIVATE MRH_PACKAGE_LIST_FILE_PATH="/etc/MRH_PackageList.conf")
-target_compile_definitions(mrhcore PRIVATE MRH_PLATFORM_SERVICE_LIST_FILE_PATH="/etc/MRH_PlatformServiceList.conf")
-target_compile_definitions(mrhcore PRIVATE MRH_PROTECTED_EVENT_LIST_FILE_PATH="/etc/MRH_ProtectedEventList.conf")
-target_compile_definitions(mrhcore PRIVATE MRH_USER_EVENT_ROUTE_FILE_PATH="/etc/MRH_UserEventRoute.conf")
-target_compile_definitions(mrhcore PRIVATE MRH_UAPP_LAUNCH_INPUT_FILE_PATH="/var/mrhuapp/LaunchInput.txt")
-target_compile_definitions(mrhcore PRIVATE MRH_CORE_INPUT_STOP_TRIGGER_PATH="/var/mrhcore")
+target_compile_definitions(mrhcore PRIVATE MRH_LOCALE_FILE_PATH="/usr/local/etc/mrh/MRH_Locale.conf")
+target_compile_definitions(mrhcore PRIVATE MRH_CORE_CONFIGURATION_FILE_PATH="/usr/local/etc/mrh/MRH_Core.conf")
+target_compile_definitions(mrhcore PRIVATE MRH_USER_SERVICE_LIST_FILE_PATH="/usr/local/etc/mrh/MRH_UserServiceList.conf")
+target_compile_definitions(mrhcore PRIVATE MRH_PACKAGE_LIST_FILE_PATH="/usr/local/etc/mrh/MRH_PackageList.conf")
+target_compile_definitions(mrhcore PRIVATE MRH_PLATFORM_SERVICE_LIST_FILE_PATH="/usr/local/etc/mrh/MRH_PlatformServiceList.conf")
+target_compile_definitions(mrhcore PRIVATE MRH_PROTECTED_EVENT_LIST_FILE_PATH="/usr/local/etc/mrh/MRH_ProtectedEventList.conf")
+target_compile_definitions(mrhcore PRIVATE MRH_USER_EVENT_ROUTE_FILE_PATH="/usr/local/etc/mrh/MRH_UserEventRoute.conf")
+target_compile_definitions(mrhcore PRIVATE MRH_UAPP_LAUNCH_INPUT_FILE_PATH="/var/mrh/mrhuapp/LaunchInput.txt")
+target_compile_definitions(mrhcore PRIVATE MRH_CORE_INPUT_STOP_TRIGGER_PATH="/var/mrh/mrhcore")
 target_compile_definitions(mrhcore PRIVATE MRH_CORE_INPUT_STOP_TRIGGER_FILE="Stop.mrhit")
 target_compile_definitions(mrhcore PRIVATE MRH_CORE_PID_FILE_DIR="/tmp/mrhpid/")
 target_compile_definitions(mrhcore PRIVATE MRH_CORE_USER_SERVICE_PID_FILE="mrhuservice_pid")
