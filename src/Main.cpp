@@ -123,7 +123,8 @@ static void StopProcess(Process* p_Process, MRH_Uint32 u32_StopTimerS, MRH_Uint3
 static void SetLocale() noexcept
 {
     Logger& s_Logger = Logger::Singleton();
-    s_Logger.Log(Logger::INFO, "Updating locale...", "Language.cpp", __LINE__);
+    s_Logger.Log(Logger::INFO, "Updating locale...",
+                 "Main.cpp", __LINE__);
     
     std::string s_Locale;
     
@@ -139,7 +140,7 @@ static void SetLocale() noexcept
                                       " (" +
                                       e.filepath2() +
                                       ")",
-                     "Language.cpp", __LINE__);
+                     "Main.cpp", __LINE__);
         s_Locale = s_DefaultLocale;
     }
     
@@ -147,12 +148,14 @@ static void SetLocale() noexcept
     
     if (s_Locale.compare(std::setlocale(LC_ALL, NULL)) != 0)
     {
-        s_Logger.Log(Logger::WARNING, "Failed to set locale to " + s_Locale + "!", "Language.cpp", __LINE__);
+        s_Logger.Log(Logger::WARNING, "Failed to set locale to " + s_Locale + "!",
+                     "Main.cpp", __LINE__);
         std::setlocale(LC_ALL, s_DefaultLocale.c_str());
     }
     else
     {
-        s_Logger.Log(Logger::INFO, "Locale set to " + s_Locale + "!", "Language.cpp", __LINE__);
+        s_Logger.Log(Logger::INFO, "Locale set to " + s_Locale + "!",
+                     "Main.cpp", __LINE__);
     }
 }
 
