@@ -34,31 +34,31 @@
 //*************************************************************************************
 
 #ifndef MRH_CORE_CONFIGURATION_FILE_PATH
-    #define MRH_CORE_CONFIGURATION_FILE_PATH "/etc/MRH_Core.conf"
+    #define MRH_CORE_CONFIGURATION_FILE_PATH "/usr/local/etc/mrh/MRH_Core.conf"
 #endif
 
 #ifndef MRH_LOCALE_FILE_PATH
-    #define MRH_LOCALE_FILE_PATH "/etc/MRH_Locale.conf"
+    #define MRH_LOCALE_FILE_PATH "/usr/local/etc/mrh/MRH_Locale.conf"
 #endif
 
 #ifndef MRH_PLATFORM_SERVICE_LIST_FILE_PATH
-    #define MRH_PLATFORM_SERVICE_LIST_FILE_PATH "/etc/MRH_PlatformServiceList.conf"
+    #define MRH_PLATFORM_SERVICE_LIST_FILE_PATH "/usr/local/etc/mrh/MRH_PlatformServiceList.conf"
 #endif
 
 #ifndef MRH_USER_SERVICE_LIST_FILE_PATH
-    #define MRH_USER_SERVICE_LIST_FILE_PATH "/etc/MRH_UserServiceList.conf"
+    #define MRH_USER_SERVICE_LIST_FILE_PATH "/usr/local/etc/mrh/MRH_UserServiceList.conf"
 #endif
 
 #ifndef MRH_PACKAGE_LIST_FILE_PATH
-    #define MRH_PACKAGE_LIST_FILE_PATH "/etc/MRH_PackageList.conf"
+    #define MRH_PACKAGE_LIST_FILE_PATH "/usr/local/etc/mrh/MRH_PackageList.conf"
 #endif
 
 #ifndef MRH_PROTECTED_EVENT_LIST_FILE_PATH
-    #define MRH_PROTECTED_EVENT_LIST_FILE_PATH "/etc/MRH_ProtectedEventList.conf"
+    #define MRH_PROTECTED_EVENT_LIST_FILE_PATH "/usr/local/etc/mrh/MRH_ProtectedEventList.conf"
 #endif
 
 #ifndef MRH_USER_EVENT_ROUTE_FILE_PATH
-    #define MRH_USER_EVENT_ROUTE_FILE_PATH "/etc/MRH_UserEventRoute.conf"
+    #define MRH_USER_EVENT_ROUTE_FILE_PATH "/usr/local/etc/mrh/MRH_UserEventRoute.conf"
 #endif
 
 //*************************************************************************************
@@ -66,7 +66,7 @@
 //*************************************************************************************
 
 #ifndef MRH_UAPP_LAUNCH_INPUT_FILE_PATH
-    #define MRH_UAPP_LAUNCH_INPUT_FILE_PATH "/var/mrhuapp/LaunchInput.txt"
+    #define MRH_UAPP_LAUNCH_INPUT_FILE_PATH "/var/mrh/mrhuapp/LaunchInput.txt"
 #endif
 
 //*************************************************************************************
@@ -74,7 +74,7 @@
 //*************************************************************************************
 
 #ifndef MRH_CORE_INPUT_STOP_TRIGGER_PATH
-    #define MRH_CORE_INPUT_STOP_TRIGGER_PATH "/var/mrhcore"
+    #define MRH_CORE_INPUT_STOP_TRIGGER_PATH "/var/mrh/mrhcore"
 #endif
 
 #ifndef MRH_CORE_INPUT_STOP_TRIGGER_FILE
