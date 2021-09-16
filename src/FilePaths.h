@@ -65,8 +65,12 @@
 // Package Application Parent
 //*************************************************************************************
 
-#ifndef MRH_UAPP_LAUNCH_INPUT_FILE_PATH
-    #define MRH_UAPP_LAUNCH_INPUT_FILE_PATH "/var/mrh/mrhuapp/LaunchInput.txt"
+#ifndef MRH_CORE_LAUNCH_INPUT_DIR
+    #define MRH_CORE_LAUNCH_INPUT_DIR "/var/mrh/mrhuapp/"
+#endif
+
+#ifndef MRH_CORE_LAUNCH_INPUT_FILE
+    #define MRH_CORE_LAUNCH_INPUT_FILE "LaunchInput.txt"
 #endif
 
 //*************************************************************************************
@@ -79,6 +83,14 @@
 
 #ifndef MRH_CORE_INPUT_STOP_TRIGGER_FILE
     #define MRH_CORE_INPUT_STOP_TRIGGER_FILE "Stop.mrhit"
+#endif
+
+//*************************************************************************************
+// Log Paths
+//*************************************************************************************
+
+#ifndef MRH_CORE_LOG_FILE_DIR
+    #define MRH_CORE_LOG_FILE_DIR "/var/log/mrh/"
 #endif
 
 //*************************************************************************************
@@ -95,6 +107,10 @@
 
 #ifndef MRH_CORE_PLATFORM_SERVICE_PID_FILE
     #define MRH_CORE_PLATFORM_SERVICE_PID_FILE "mrhpservice_pid"
+#endif
+
+#ifndef MRH_CORE_USER_PID_FILE
+    #define MRH_CORE_USER_PID_FILE "mrhuapp_pid"
 #endif
 
 

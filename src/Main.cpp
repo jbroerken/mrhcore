@@ -20,6 +20,7 @@
  */
 
 // C / C++
+#include <sys/stat.h>
 #include <csignal>
 #include <cstdlib>
 #include <new>
@@ -81,6 +82,34 @@ extern "C"
             default:
                 i_LastSignal = -1;
                 break;
+        }
+    }
+}
+
+//*************************************************************************************
+// Directories
+//*************************************************************************************
+
+static void CreateDirectory(std::string s_Path)
+{
+    struct stat c_Stat;
+    size_t us_Pos = 0;
+    std::string s_Current = "";
+    
+    while ((us_Pos = s_Path.find_first_of('/', us_Pos + 1)) != std::string::npos)
+    {
+        s_Current = s_Path.substr(0, us_Pos);
+        
+        if (stat(s_Current.c_str(), &c_Stat) == 0 && S_ISDIR(c_Stat.st_mode))
+        {
+            continue;
+        }
+        
+        if (mkdir(s_Current.c_str(), 0777) < 0) // @TODO: Restricting might be better
+        {
+            Logger::Singleton().Log(Logger::WARNING, "Failed to create dir path: " + s_Current,
+                                    "Main.cpp", __LINE__);
+            break;
         }
     }
 }
@@ -226,6 +255,11 @@ int main(int argc, char* argv[])
     std::signal(SIGABRT, SignalHandler);
     std::signal(SIGSEGV, SignalHandler);
     std::signal(SIGHUP, SignalHandler);
+    
+    // Create run directories
+    CreateDirectory(MRH_CORE_PID_FILE_DIR);
+    CreateDirectory(MRH_CORE_LOG_FILE_DIR);
+    CreateDirectory(MRH_CORE_LAUNCH_INPUT_DIR);
     
     // The configuration has to be loaded now, the service pools rely on it
     SetLocale();

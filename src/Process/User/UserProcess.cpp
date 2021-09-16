@@ -38,6 +38,9 @@ namespace
     constexpr int i_EventVerMax = MRH_EVENT_VERSION;
 }
 
+#define MRH_USER_PROCESS_PID_FILE_PATH MRH_CORE_PID_FILE_DIR "" MRH_CORE_USER_PID_FILE
+#define MRH_CORE_LAUNCH_INPUT_FILE_PATH MRH_CORE_LAUNCH_INPUT_DIR "" MRH_CORE_LAUNCH_INPUT_FILE
+
 
 //*************************************************************************************
 // Constructor / Destructor
@@ -112,7 +115,8 @@ void UserProcess::Run(Package const& c_Package, int i_LaunchCommandID, std::stri
     
     // Set initial reset state
     e_ResetState = REQUIRE_REQUEST;
-    Logger::Singleton().Log(Logger::INFO, "User process now requires a reset request.", "UserProcess.cpp", __LINE__);
+    Logger::Singleton().Log(Logger::INFO, "User process now requires a reset request.",
+                            "UserProcess.cpp", __LINE__);
     
     // Set permissions for later, we lose s_Package given
     try
@@ -125,7 +129,7 @@ void UserProcess::Run(Package const& c_Package, int i_LaunchCommandID, std::stri
     }
     
     // Write launch input to file
-    std::ofstream f_InputFile(MRH_UAPP_LAUNCH_INPUT_FILE_PATH, std::ios::trunc);
+    std::ofstream f_InputFile(MRH_CORE_LAUNCH_INPUT_FILE_PATH, std::ios::trunc);
     
     if (f_InputFile.is_open() == false)
     {
@@ -147,7 +151,7 @@ void UserProcess::Run(Package const& c_Package, int i_LaunchCommandID, std::stri
         v_Arg.emplace_back(GetArgumentBytes(std::to_string(this->u32_EventLimit)));
         v_Arg.emplace_back(GetArgumentBytes(std::to_string(this->s32_RecieveTimeoutMS)));
         v_Arg.emplace_back(GetArgumentBytes(std::to_string(i_LaunchCommandID)));
-        v_Arg.emplace_back(GetArgumentBytes(MRH_UAPP_LAUNCH_INPUT_FILE_PATH));
+        v_Arg.emplace_back(GetArgumentBytes(MRH_CORE_LAUNCH_INPUT_FILE_PATH));
         
         // Update the package path after a successfull launch
 #if MRH_CORE_EVENT_LOGGING > 0
@@ -171,6 +175,20 @@ void UserProcess::Run(Package const& c_Package, int i_LaunchCommandID, std::stri
     catch (ProcessException& e)
     {
         throw;
+    }
+    
+    // Write PID to file
+    std::ofstream f_File(MRH_USER_PROCESS_PID_FILE_PATH, std::ios::trunc);
+    
+    if (f_File.is_open() == false)
+    {
+        f_File << std::to_string(GetProcessID());
+        f_File.close();
+    }
+    else
+    {
+        Logger::Singleton().Log(Logger::WARNING, "Failed to write pid file: " MRH_USER_PROCESS_PID_FILE_PATH,
+                                "UserProcess.cpp", __LINE__);
     }
     
     // @TODO: Add pid_t to MRHCKM if MRHCKM is used!
@@ -224,7 +242,8 @@ bool UserProcess::FilterEventsResetRequest(std::vector<Event>& v_Event) noexcept
             return true;
         }
         
-        Logger::Singleton().Log(Logger::WARNING, "Cannot send user app event: Service reset not yet requested!", "UserProcess.cpp", __LINE__);
+        Logger::Singleton().Log(Logger::WARNING, "Cannot send user app event: Service reset not yet requested!",
+                                "UserProcess.cpp", __LINE__);
         v_Event.erase(v_Event.begin());
     }
     
@@ -260,7 +279,8 @@ std::vector<Event>& UserProcess::RetrieveEvents() noexcept
             // Check for the event request and remove all events before it
             if (FilterEventsResetRequest(v_Event) == true)
             {
-                Logger::Singleton().Log(Logger::INFO, "User process sent a service reset request.", "UserProcess.cpp", __LINE__);
+                Logger::Singleton().Log(Logger::INFO, "User process sent a service reset request.",
+                                        "UserProcess.cpp", __LINE__);
                 e_ResetState = SEND_RESPONSE;
             }
             break;
@@ -302,7 +322,8 @@ void UserProcess::AddSendEvents(std::vector<Event>& v_Event) noexcept
                                                   NULL,
                                                   0));
             e_ResetState = RESET_COMPLETE;
-            Logger::Singleton().Log(Logger::INFO, "Sending reset request acknoledged response to user process.", "UserProcess.cpp", __LINE__);
+            Logger::Singleton().Log(Logger::INFO, "Sending reset request acknoledged response to user process.",
+                                    "UserProcess.cpp", __LINE__);
         case RESET_COMPLETE:
             // Check app permissions and password, filter events
             // NOTE: We don't add missing permission events here - some services always send without request

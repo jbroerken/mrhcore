@@ -31,11 +31,6 @@
 #include "../../Logger/Logger.h"
 #include "../../FilePaths.h"
 
-// Pre-defined
-#ifndef MRH_CORE_CREATE_PID_DIR
-    #define MRH_CORE_CREATE_PID_DIR 0
-#endif
-
 
 //*************************************************************************************
 // Constructor / Destructor
@@ -43,31 +38,6 @@
 
 ServicePool::ServicePool() : b_Run(false)
 {
-    // Create pid dir
-#if MRH_CORE_CREATE_PID_DIR > 0
-    struct stat c_Stat;
-    size_t us_Pos = 0;
-    std::string s_Full(MRH_CORE_PID_FILE_DIR);
-    std::string s_Current = "";
-    
-    while ((us_Pos = s_Full.find_first_of('/', us_Pos + 1)) != std::string::npos)
-    {
-        s_Current = s_Full.substr(0, us_Pos);
-        
-        if (stat(s_Current.c_str(), &c_Stat) == 0 && S_ISDIR(c_Stat.st_mode))
-        {
-            continue;
-        }
-        
-        if (mkdir(s_Current.c_str(), 0777) < 0) // @TODO: Restricting might be better
-        {
-            Logger::Singleton().Log(Logger::WARNING, "Failed to create pid path: " + s_Current,
-                                    "ServicePool.cpp", __LINE__);
-            break;
-        }
-    }
-#endif
-    
     // Thread stuff
     try
     {

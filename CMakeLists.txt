@@ -207,13 +207,15 @@ target_compile_definitions(mrhcore PRIVATE MRH_PACKAGE_LIST_FILE_PATH="/usr/loca
 target_compile_definitions(mrhcore PRIVATE MRH_PLATFORM_SERVICE_LIST_FILE_PATH="/usr/local/etc/mrh/MRH_PlatformServiceList.conf")
 target_compile_definitions(mrhcore PRIVATE MRH_PROTECTED_EVENT_LIST_FILE_PATH="/usr/local/etc/mrh/MRH_ProtectedEventList.conf")
 target_compile_definitions(mrhcore PRIVATE MRH_USER_EVENT_ROUTE_FILE_PATH="/usr/local/etc/mrh/MRH_UserEventRoute.conf")
-target_compile_definitions(mrhcore PRIVATE MRH_UAPP_LAUNCH_INPUT_FILE_PATH="/var/mrh/mrhuapp/LaunchInput.txt")
+target_compile_definitions(mrhcore PRIVATE MRH_CORE_LAUNCH_INPUT_DIR="/var/mrh/mrhuapp/")
+target_compile_definitions(mrhcore PRIVATE MRH_CORE_LAUNCH_INPUT_FILE="LaunchInput.txt")
 target_compile_definitions(mrhcore PRIVATE MRH_CORE_INPUT_STOP_TRIGGER_PATH="/var/mrh/mrhcore")
 target_compile_definitions(mrhcore PRIVATE MRH_CORE_INPUT_STOP_TRIGGER_FILE="Stop.mrhit")
+target_compile_definitions(mrhcore PRIVATE MRH_CORE_LOG_FILE_DIR="/var/log/mrh/")
 target_compile_definitions(mrhcore PRIVATE MRH_CORE_PID_FILE_DIR="/tmp/mrhpid/")
 target_compile_definitions(mrhcore PRIVATE MRH_CORE_USER_SERVICE_PID_FILE="mrhuservice_pid")
 target_compile_definitions(mrhcore PRIVATE MRH_CORE_PLATFORM_SERVICE_PID_FILE="mrhpservice_pid")
-target_compile_definitions(mrhcore PRIVATE MRH_CORE_CREATE_PID_DIR=0)
+target_compile_definitions(mrhcore PRIVATE MRH_CORE_USER_PID_FILE="mrhuapp_pid")
 
 ###
 #  Install
