@@ -121,6 +121,9 @@ private:
     std::string s_PackagePath;
 #endif
     
+    // Event Version
+    int i_EventVer;
+    
 protected:
     
 };

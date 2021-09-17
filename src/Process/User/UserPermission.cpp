@@ -134,6 +134,38 @@ void UserPermission::FilterEventsPermission(std::vector<Event>& v_Event, bool b_
     }
 }
 
+void UserPermission::FilterEventsVersion(std::vector<Event>& v_Event, int i_EventVer) noexcept
+{
+    for (auto Event = v_Event.begin(); Event != v_Event.end();)
+    {
+        switch (i_EventVer)
+        {
+            /**
+             *  Event Version 1
+             */
+                
+            case 1:
+                if (Event->GetType() > MRH_EVENT_NOTIFICATION_CUSTOM_COMMAND_S)
+                {
+                    Event = v_Event.erase(Event);
+                }
+                else
+                {
+                    ++Event;
+                }
+                break;
+                
+            /**
+             *  Default
+             */
+                
+            default:
+                Event = v_Event.erase(Event);
+                break;
+        }
+    }
+}
+
 //*************************************************************************************
 // Event Permissions
 //*************************************************************************************

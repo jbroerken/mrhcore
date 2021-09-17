@@ -211,6 +211,9 @@ private:
     MRH_Uint32 u32_EventLimit;
     MRH_Sint32 s32_RecieveTimeoutMS;
     
+    // Event Version
+    int i_EventVer;
+    
     // Reset state
     ResetState e_ResetState;
     

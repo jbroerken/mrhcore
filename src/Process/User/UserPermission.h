@@ -259,6 +259,15 @@ protected:
      
     void FilterEventsPermission(std::vector<Event>& v_Event, bool b_AddResponseEvent) noexcept;
     
+    /**
+     *  Filter events based on the process event version supported.
+     *
+     *  \param v_Event The event vector to check.
+     *  \param i_EventVer The given event version.
+     */
+    
+    void FilterEventsVersion(std::vector<Event>& v_Event, int i_EventVer) noexcept;
+    
     //*************************************************************************************
     // Data
     //*************************************************************************************

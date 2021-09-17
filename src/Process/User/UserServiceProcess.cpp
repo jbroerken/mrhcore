@@ -56,6 +56,9 @@ UserServiceProcess::UserServiceProcess() : ServiceProcess(TransmissionSource::So
 #if MRH_CORE_EVENT_LOGGING > 0
     s_PackagePath = "<undefined>";
 #endif
+    
+    // Event version
+    i_EventVer = -1;
 }
 
 UserServiceProcess::~UserServiceProcess() noexcept
@@ -83,11 +86,12 @@ void UserServiceProcess::Run(Package const& c_Package, std::string s_BinaryPath,
     }
     
     // Basics reset, check package event ver for communication
-    if (c_Package.PackageService::GetServiceEventVersion() < i_EventVerMin ||
-        c_Package.PackageService::GetServiceEventVersion() > i_EventVerMax)
+    i_EventVer = c_Package.PackageService::GetServiceEventVersion();
+    
+    if (i_EventVer < i_EventVerMin || i_EventVer > i_EventVerMax)
     {
         throw ProcessException("Invalid package service event version: Got " +
-                               std::to_string(c_Package.PackageService::GetServiceEventVersion()) +
+                               std::to_string(i_EventVer) +
                                ", but bounds are " +
                                std::to_string(i_EventVerMin) +
                                " (Min) to " +
@@ -155,7 +159,13 @@ std::vector<Event>& UserServiceProcess::RetrieveEvents() noexcept
     // Filter events based on service permissions
     std::vector<Event>& v_Event = EventQueue::RetrieveEvents();
     
+    // Run filters
     FilterEventsPermission(v_Event, false); // No response for services
+    
+    if (i_EventVer < i_EventVerMax)
+    {
+        FilterEventsVersion(v_Event, i_EventVer);
+    }
     
     return v_Event;
 }

@@ -58,6 +58,9 @@ UserProcess::UserProcess() : EventQueue(TransmissionSource::SourceType::PIPE),
     u32_EventGroupID = rand() % RAND_MAX;
     u32_PreviousEventGroupID = u32_EventGroupID;
     
+    // Initial event version
+    i_EventVer = -1;
+    
     // Initial reset state
     e_ResetState = REQUIRE_REQUEST;
     
@@ -101,11 +104,12 @@ void UserProcess::Run(Package const& c_Package, int i_LaunchCommandID, std::stri
     u32_PreviousEventGroupID = u32_EventGroupID;
     
     // Basics reset, check package event ver for communication
-    if (c_Package.PackageApp::GetAppEventVersion() < i_EventVerMin ||
-        c_Package.PackageApp::GetAppEventVersion() > i_EventVerMax)
+    i_EventVer = c_Package.PackageApp::GetAppEventVersion();
+    
+    if (i_EventVer < i_EventVerMin || i_EventVer > i_EventVerMax)
     {
         throw ProcessException("Invalid package app event version: Got " +
-                               std::to_string(c_Package.PackageApp::GetAppEventVersion()) +
+                               std::to_string(i_EventVer) +
                                ", but bounds are " +
                                std::to_string(i_EventVerMin) +
                                " (Min) to " +
@@ -272,11 +276,18 @@ void UserProcess::RecieveEvents() noexcept
 
 std::vector<Event>& UserProcess::RetrieveEvents() noexcept
 {
-    // Filter events, group first followed by state
     std::vector<Event>& v_Event = EventQueue::RetrieveEvents();
     
+    // Filter events by group id first
     FilterEventsGroupID(v_Event);
     
+    // Next, filter on event version if needed
+    if (i_EventVer < i_EventVerMax)
+    {
+        FilterEventsVersion(v_Event, i_EventVer);
+    }
+    
+    // Now filter based on reset state
     switch (e_ResetState)
     {
         case REQUIRE_REQUEST:
@@ -311,9 +322,16 @@ void UserProcess::LogSentEvents(Event const& c_Event) noexcept
 
 void UserProcess::AddSendEvents(std::vector<Event>& v_Event) noexcept
 {
-    // Filter events, group then state based
+    // Filter events by group id first
     FilterEventsGroupID(v_Event);
     
+    // Next, filter on event version if needed
+    if (i_EventVer < i_EventVerMax)
+    {
+        FilterEventsVersion(v_Event, i_EventVer);
+    }
+    
+    // Now filter based on reset state
     switch (e_ResetState)
     {
         case SEND_RESPONSE:
