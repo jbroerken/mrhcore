@@ -122,6 +122,9 @@ PlatformServicePool::PlatformServicePool()
 
 PlatformServicePool::~PlatformServicePool() noexcept
 {
+    // Clear pid list
+    WritePidList(MRH_CORE_PLATFORM_SERVICE_PID_FILE, {});
+    
     // Stop and clear handled by base destructor
 }
 

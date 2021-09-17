@@ -69,6 +69,10 @@ UserProcess::UserProcess() : EventQueue(TransmissionSource::SourceType::PIPE),
 
 UserProcess::~UserProcess() noexcept
 {
+    // Clear PID
+    std::ofstream f_File(MRH_USER_PROCESS_PID_FILE_PATH, std::ios::trunc);
+    f_File.close();
+    
     // NOTE: Process class terminates process on destruction!
 }
 
