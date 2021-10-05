@@ -47,7 +47,7 @@ namespace
     int i_LastSignal = -1;
     
     // Locale
-    std::string s_DefaultLocale = "en_US";
+    std::string s_DefaultLocale = "en_US.UTF-8";
 
     // Platform service startup timeout
     constexpr MRH_Uint32 u32_ServiceStartupTimeoutS = 60;
