@@ -120,7 +120,7 @@ void UserServiceProcess::Run(Package const& c_Package, std::string s_BinaryPath,
         
         // Update the package path after a successfull launch
 #if MRH_CORE_EVENT_LOGGING > 0
-        s_PackagePath = s_Package.GetPackagePath();
+        s_PackagePath = c_Package.GetPackagePath();
 #endif
     }
     catch (ProcessException& e)
@@ -150,7 +150,7 @@ void UserServiceProcess::Run(Package const& c_Package, std::string s_BinaryPath,
 #if MRH_CORE_EVENT_LOGGING > 0
 void UserServiceProcess::LogRecievedEvents(Event const& c_Event) noexcept
 {
-    EventLogger::Singleton().Log(c_Event, "Recieved event from platform service process: " + s_PackagePath);
+    EventLogger::Singleton().Log(c_Event, "Recieved event from user service process: " + s_PackagePath);
 }
 #endif
 
@@ -177,7 +177,7 @@ std::vector<Event>& UserServiceProcess::RetrieveEvents() noexcept
 #if MRH_CORE_EVENT_LOGGING > 0
 void UserServiceProcess::LogSentEvents(Event const& c_Event) noexcept
 {
-    EventLogger::Singleton().Log(c_Event, "Sending event to platform service process: " +
+    EventLogger::Singleton().Log(c_Event, "Sending event to user service process: " +
                                           s_PackagePath +
                                           " (User servies are not allowed to have events sent to them!)");
 }

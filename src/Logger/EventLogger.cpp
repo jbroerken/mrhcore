@@ -87,7 +87,7 @@ void EventLogger::LogDataLine(std::string& s_Line, const MRH_Uint8* p_Data, MRH_
     
     for (MRH_Uint32 i = 0; i < u32_Bytes; ++i)
     {
-        snprintf(p_Hex, 32, "%X", p_Data[i]); // NOTE: Anything wrong with the loop? check this hellspawn function
+        snprintf(p_Hex, 32, "%X", p_Data[i]); // @NOTE: Anything wrong with the loop? check this hellspawn function
         s_Line += ("0x" + std::string(p_Hex, 2) + " ");
     }
 }
@@ -122,8 +122,8 @@ void EventLogger::Log(Event const& c_Event, std::string s_Message) noexcept
     std::string s_Time(std::ctime(&s_RawTime));
     s_Time.erase(s_Time.end() - 1); // ctime adds a newline, why?
     
-    v_Message.emplace_back(std::to_string(u64_EventID) + ": " + GetEventNameString(c_Event.GetType()));
-    v_Message.emplace_back(v_Message[0].length(), '=');
+    v_Message.emplace_back("===");
+    v_Message.emplace_back("- " + std::to_string(u64_EventID) + ": " + GetEventNameString(c_Event.GetType()) + " -");
     v_Message.emplace_back("Time: " + s_Time);
     v_Message.emplace_back("Log Message: " + s_Message);
     v_Message.emplace_back("Event Group ID: " + std::to_string(c_Event.GetGroupID()));
@@ -139,7 +139,7 @@ void EventLogger::Log(Event const& c_Event, std::string s_Message) noexcept
         v_Message.emplace_back("<No event data available>");
     }
     
-    v_Message.emplace_back(""); // Empty line to separate
+    v_Message.emplace_back("===");
     
     c_Mutex.lock();
     
@@ -150,7 +150,7 @@ void EventLogger::Log(Event const& c_Event, std::string s_Message) noexcept
             f_EventLogFile << String << std::endl;
         }
         
-        if (MRH_EVENT_LOGGER_PRINT_CLI > 0)
+        if (MRH_EVENT_LOGGER_PRINT_CLI > 0 && String.size() > 0)
         {
             std::cout << String << std::endl;
         }
