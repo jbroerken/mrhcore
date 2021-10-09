@@ -377,12 +377,6 @@ std::string EventLogger::GetEventNameString(MRH_Uint32 u32_Type) noexcept
         case MRH_EVENT_APP_LAUNCH_SOA_CLEAR_TIMER_U:
             s_Result = "MRH_EVENT_APP_LAUNCH_SOA_CLEAR_TIMER_U";
             break;
-        case MRH_EVENT_APP_GET_DEFAULT_PACKAGE_U:
-            s_Result = "MRH_EVENT_APP_GET_DEFAULT_PACKAGE_U";
-            break;
-        case MRH_EVENT_APP_SET_DEFAULT_PACKAGE_U:
-            s_Result = "MRH_EVENT_APP_SET_DEFAULT_PACKAGE_U";
-            break;
         case MRH_EVENT_APP_CUSTOM_COMMAND_U:
             s_Result = "MRH_EVENT_APP_CUSTOM_COMMAND_U";
             break;
@@ -404,12 +398,6 @@ std::string EventLogger::GetEventNameString(MRH_Uint32 u32_Type) noexcept
             break;
         case MRH_EVENT_APP_LAUNCH_SOA_CLEAR_TIMER_S:
             s_Result = "MRH_EVENT_APP_LAUNCH_SOA_CLEAR_TIMER_S";
-            break;
-        case MRH_EVENT_APP_GET_DEFAULT_PACKAGE_S:
-            s_Result = "MRH_EVENT_APP_GET_DEFAULT_PACKAGE_S";
-            break;
-        case MRH_EVENT_APP_SET_DEFAULT_PACKAGE_S:
-            s_Result = "MRH_EVENT_APP_SET_DEFAULT_PACKAGE_S";
             break;
         case MRH_EVENT_APP_CUSTOM_COMMAND_S:
             s_Result = "MRH_EVENT_APP_CUSTOM_COMMAND_S";

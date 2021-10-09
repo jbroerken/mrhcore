@@ -139,9 +139,7 @@ protected:
         APPLICATION_CLEAR_LAUNCH = 2,            // Clear application launch request
         APPLICATION_LAUNCH_TIMER = 4,            // Timed application launch by path
         APPLICATION_CLEAR_LAUNCH_TIMER = 8,      // Clear all timed application launches request
-        APPLICATION_GET_DEFAULT = 16,            // Get default application path
-        APPLICATION_SET_DEFAULT = 32,            // Set default application path
-        APPLICATION_CUSTOM_COMMAND = 64,         // Allow sending and recieving of custom commands
+        APPLICATION_CUSTOM_COMMAND = 16,         // Allow sending and recieving of custom commands
     
     }PermissionApplication;
 

@@ -216,8 +216,6 @@ void PlatformServicePool::DistributeSendEvents() noexcept
             case MRH_EVENT_APP_LAUNCH_SOA_TIMER_REMINDER_S:
             case MRH_EVENT_APP_LAUNCH_SOA_CLEAR_S:
             case MRH_EVENT_APP_LAUNCH_SOA_CLEAR_TIMER_S:
-            case MRH_EVENT_APP_GET_DEFAULT_PACKAGE_S:
-            case MRH_EVENT_APP_SET_DEFAULT_PACKAGE_S:
             case MRH_EVENT_APP_CUSTOM_COMMAND_S:
                 
             // Notifications

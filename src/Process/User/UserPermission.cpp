@@ -304,12 +304,6 @@ bool UserPermission::PermissionGiven(MRH_Uint32 u32_Type) noexcept
             return p_Permission[Package::APP] & PermissionApplication::APPLICATION_CLEAR_LAUNCH_TIMER;
         case MRH_EVENT_APP_LAUNCH_SOA_TIMER_REMINDER_S:
             return true; // Reminder to close for other app should always be recievable!
-        case MRH_EVENT_APP_GET_DEFAULT_PACKAGE_U:
-        case MRH_EVENT_APP_GET_DEFAULT_PACKAGE_S:
-            return p_Permission[Package::APP] & PermissionApplication::APPLICATION_GET_DEFAULT;
-        case MRH_EVENT_APP_SET_DEFAULT_PACKAGE_U:
-        case MRH_EVENT_APP_SET_DEFAULT_PACKAGE_S:
-            return p_Permission[Package::APP] & PermissionApplication::APPLICATION_SET_DEFAULT;
         case MRH_EVENT_APP_CUSTOM_COMMAND_U:
         case MRH_EVENT_APP_CUSTOM_COMMAND_S:
             return p_Permission[Package::APP] & PermissionApplication::APPLICATION_CUSTOM_COMMAND;
