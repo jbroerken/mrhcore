@@ -175,6 +175,7 @@ void PlatformServicePool::DistributeSendEvents() noexcept
             case MRH_EVENT_PS_RESET_ACKNOLEDGED_U: // Not sent by the user, block
                 
             // Custom
+            case MRH_EVENT_CUSTOM_AVAIL_S:
             case MRH_EVENT_CUSTOM_CUSTOM_COMMAND_S:
                 
             // Voice - Listen

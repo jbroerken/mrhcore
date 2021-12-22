@@ -192,6 +192,8 @@ bool UserPermission::PermissionGiven(MRH_Uint32 u32_Type) noexcept
             return true;
             
         // Custom service
+        case MRH_EVENT_CUSTOM_AVAIL_U:
+        case MRH_EVENT_CUSTOM_AVAIL_S:
         case MRH_EVENT_CUSTOM_CUSTOM_COMMAND_U:
         case MRH_EVENT_CUSTOM_CUSTOM_COMMAND_S:
             return p_Permission[Package::CUSTOM] > PermissionCustom::CUSTOM_NONE;

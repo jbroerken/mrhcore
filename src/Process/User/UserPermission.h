@@ -127,6 +127,7 @@ protected:
         /* Event Version 1 */
         
         CUSTOM_NONE = 0,                         // No custom service permissions
+        CUSTOM_USABLE = 1,                       // Custom service usage enabled
     
     }PermissionCustom;
 

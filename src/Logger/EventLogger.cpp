@@ -200,10 +200,16 @@ std::string EventLogger::GetEventNameString(MRH_Uint32 u32_Type) noexcept
             break;
             
         // Custom
+        case MRH_EVENT_CUSTOM_AVAIL_U:
+            s_Result = "MRH_EVENT_CUSTOM_AVAIL_U";
+            break;
         case MRH_EVENT_CUSTOM_CUSTOM_COMMAND_U:
             s_Result = "MRH_EVENT_CUSTOM_CUSTOM_COMMAND_U";
             break;
             
+        case MRH_EVENT_CUSTOM_AVAIL_S:
+            s_Result = "MRH_EVENT_CUSTOM_AVAIL_S";
+            break;
         case MRH_EVENT_CUSTOM_CUSTOM_COMMAND_S:
             s_Result = "MRH_EVENT_CUSTOM_CUSTOM_COMMAND_S";
             break;
