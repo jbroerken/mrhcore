@@ -192,46 +192,49 @@ static void SetLocale() noexcept
 // Configuration
 //*************************************************************************************
 
-static void LoadVariableConfiguration() noexcept
+static void LoadProtectedEventList() noexcept
 {
-    // Configuration first, followed by package list needed for user service pool
-    Logger& c_Logger = Logger::Singleton();
-    
     try
     {
         ProtectedEventList::Singleton().Update();
     }
     catch (ConfigurationException& e)
     {
-        c_Logger.Log(Logger::WARNING, "Load static configuration: " +
-                                      e.what2() +
-                                      " (" +
-                                      e.filepath2() +
-                                      ")",
-                     "Main.cpp", __LINE__);
+        Logger::Singleton().Log(Logger::WARNING, "Load static configuration: " +
+                                                 e.what2() +
+                                                 " (" +
+                                                 e.filepath2() +
+                                                 ")",
+                                "Main.cpp", __LINE__);
     }
-    
-    // Configs loaded, now load the packages
+}
+
+static void LoadPackageList() noexcept
+{
+    // No exception, simply reload
     PackageContainer::Singleton().Reload();
+}
+
+static void LoadVariableConfiguration() noexcept
+{
+    LoadProtectedEventList();
+    LoadPackageList();
 }
 
 static void LoadStaticConfiguration() noexcept
 {
-    // Configuration first, followed by package list needed for user service pool
-    Logger& c_Logger = Logger::Singleton();
-    
     try
     {
         CoreConfiguration::Singleton().Load();
     }
     catch (ConfigurationException& e)
     {
-        c_Logger.Log(Logger::WARNING, "Load static configuration: " +
-                                      e.what2() +
-                                      " (" +
-                                      e.filepath2() +
-                                      ")",
-                     "Main.cpp", __LINE__);
+        Logger::Singleton().Log(Logger::WARNING, "Load static configuration: " +
+                                                 e.what2() +
+                                                 " (" +
+                                                 e.filepath2() +
+                                                 ")",
+                                "Main.cpp", __LINE__);
     }
 }
 
@@ -348,10 +351,11 @@ int main(int argc, char* argv[])
     
     // Continious loop until termination request
     std::vector<Event> v_PlatformEvent;
+    PackageConfiguration::OSAppType e_UserProccessOSAppType = PackageConfiguration::OSAppType::NONE;
     bool b_UserProcessStopDisabled = false; // Silence warning, can't be accessed before a process starts
     bool b_UserProcessIsHome = true; // Home is always the first app
     bool b_UserProcessRunning = false;
-    int i_UserProcessStatus = -1;
+    int i_UserProcessStatus = -1; // Start at -1 to skip exit check
     
     while (i_LastSignal != SIGTERM)
     {
@@ -442,15 +446,38 @@ int main(int argc, char* argv[])
         else
         {
             /**
-             *  Step 6.1: Not running, why? Did home crash?
+             *  Step 6.1: Check why a process is not running
              */
             
-            if (i_UserProcessStatus > EXIT_SUCCESS && b_UserProcessIsHome == true)
+            // How did the process exit?
+            if (i_UserProcessStatus == EXIT_SUCCESS)
             {
-                // Default crashed, stop core
-                c_Logger.Log(Logger::ERROR, "Home package crashed, stopping core!",
-                             "Main.cpp", __LINE__);
-                break;
+                // Check OS app type on success exit, maybe we need to reload something
+                switch (e_UserProccessOSAppType)
+                {
+                    case PackageConfiguration::OSAppType::SETTINGS:
+                        LoadProtectedEventList();
+                        break;
+                    case PackageConfiguration::OSAppType::PACKAGE_MANAGER:
+                        LoadPackageList();
+                        p_UserPool->Reload(); // Reload user services for changes
+                        break;
+                        
+                    // Do nothing
+                    default:
+                        break;
+                }
+            }
+            else if (i_UserProcessStatus > EXIT_SUCCESS)
+            {
+                // Is the crashed process home?
+                if (b_UserProcessIsHome == true)
+                {
+                    // Default crashed, stop core
+                    c_Logger.Log(Logger::ERROR, "Home package crashed, stopping core!",
+                                 "Main.cpp", __LINE__);
+                    break;
+                }
             }
             
             /**
@@ -490,6 +517,7 @@ int main(int argc, char* argv[])
                     b_UserProcessIsHome = false;
                 }
                 
+                e_UserProccessOSAppType = c_Package.PackageApp::GetOSAppType();
                 b_UserProcessStopDisabled = c_Package.PackageApp::GetStopDisabled();
                 
                 // Reset user process status

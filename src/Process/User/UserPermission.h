@@ -121,7 +121,7 @@ protected:
     // Permissions
     //*************************************************************************************
 
-    // NOTE: Bit flags are used (1, 2, 4, 8, etc.) to allow for combining permissions!
+    // @NOTE: Bit flags are used (1, 2, 4, 8, etc.) to allow for combining permissions!
     typedef enum
     {
         /* Event Version 1 */

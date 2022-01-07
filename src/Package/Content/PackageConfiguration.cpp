@@ -55,7 +55,7 @@ namespace
         // Run As Key
         KEY_RUN_AS_USER_ID,
         KEY_RUN_AS_GROUP_ID,
-        KEY_RUN_AS_IS_OS_APP,
+        KEY_RUN_AS_OS_APP_TYPE,
         KEY_RUN_AS_STOP_DISABLED,
         
         // App Service Key
@@ -92,7 +92,7 @@ namespace
         // Run As Key
         "UserID",
         "GroupID",
-        "IsOSApp",
+        "OSAppType",
         "StopDisabled",
         
         // App Service Key
@@ -118,7 +118,7 @@ PackageConfiguration::PackageConfiguration(std::string const& s_ConfigurationPat
                                                                                      i_ServiceEventVersion(-1),
                                                                                      i_UserID(-1),
                                                                                      i_GroupID(-1),
-                                                                                     b_OSApp(false),
+                                                                                     e_OSAppType(NONE),
                                                                                      b_StopDisabled(false),
                                                                                      b_UseAppService(false),
                                                                                      u32_AppServiceUpdateTimerS(0)
@@ -162,7 +162,10 @@ PackageConfiguration::PackageConfiguration(std::string const& s_ConfigurationPat
             {
                 i_UserID = std::stoi(Block.GetValue(p_Identifier[KEY_RUN_AS_USER_ID]));
                 i_GroupID = std::stoi(Block.GetValue(p_Identifier[KEY_RUN_AS_GROUP_ID]));
-                b_OSApp = Block.GetValue(p_Identifier[KEY_RUN_AS_IS_OS_APP]).compare("1") == 0 ? true : false;
+                
+                int i_OSAppType = std::stoi(Block.GetValue(p_Identifier[KEY_RUN_AS_OS_APP_TYPE]));
+                e_OSAppType = i_OSAppType <= NONE ? NONE : static_cast<OSAppType>(i_OSAppType);
+                
                 b_StopDisabled = Block.GetValue(p_Identifier[KEY_RUN_AS_STOP_DISABLED]).compare("1") == 0 ? true : false;
             }
             else if (s_Name.compare(p_Identifier[BLOCK_APP_SERVICE]) == 0)
@@ -190,7 +193,7 @@ PackageConfiguration::PackageConfiguration(PackageConfiguration const& c_Package
     i_UserID = c_PackageConfiguration.i_UserID;
     i_GroupID = c_PackageConfiguration.i_GroupID;
     
-    b_OSApp = c_PackageConfiguration.b_OSApp;
+    e_OSAppType = c_PackageConfiguration.e_OSAppType;
     b_StopDisabled = c_PackageConfiguration.b_StopDisabled;
     
     b_UseAppService = c_PackageConfiguration.b_UseAppService;
@@ -234,9 +237,9 @@ int PackageConfiguration::GetGroupID() const noexcept
     return i_GroupID;
 }
 
-bool PackageConfiguration::GetOSApp() const noexcept
+PackageConfiguration::OSAppType PackageConfiguration::GetOSAppType() const noexcept
 {
-    return b_OSApp;
+    return e_OSAppType;
 }
 
 bool PackageConfiguration::GetStopDisabled() const noexcept

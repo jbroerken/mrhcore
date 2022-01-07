@@ -64,7 +64,15 @@ void UserPermission::UpdatePermissions(Package const& c_Package)
         throw ProcessException(e.what2()); // Convert to keep in line with expected exceptions
     }
     
-    b_PasswordVerified = c_Package.PackageApp::GetOSApp(); // OS Apps don't require password authentification, considered safe
+    // OS Apps don't require password authentification, considered safe
+    if (c_Package.PackageApp::GetOSAppType() > PackageConfiguration::OSAppType::NONE)
+    {
+        b_PasswordVerified = true;
+    }
+    else
+    {
+        b_PasswordVerified = false;
+    }
 }
 
 //*************************************************************************************

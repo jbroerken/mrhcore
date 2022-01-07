@@ -58,6 +58,21 @@ public:
         
     }EventPermissionList;
     
+    // NOTE: Bit flags are used (1, 2, 4, 8, etc.) to allow for combining types!
+    typedef enum
+    {
+        NONE = 0, // Not an OS App
+        UTILITY = 1, // General for OS apps which modify the OS or platform
+        LAUNCHER = 2,
+        SETTINGS = 4,
+        PACKAGE_MANAGER = 8,
+        
+        OS_APP_TYPE_MAX = (PACKAGE_MANAGER * 2) - 1,
+        
+        OS_APP_TYPE_COUNT = 4
+        
+    }OSAppType;
+    
     //*************************************************************************************
     // Getters
     //*************************************************************************************
@@ -79,7 +94,7 @@ public:
     int GetServiceEventVersion() const noexcept;
     
     /**
-     *  Get a application package permissions. This function is thread safe.
+     *  Get a application package permissions.
      *
      *  \param e_Permission The permission to recieve.
      *
@@ -89,7 +104,7 @@ public:
     EventPermission GetPermission(EventPermissionList e_Permission) const;
 
     /**
-     *  Get the application package user id. This function is thread safe.
+     *  Get the application package user id.
      *
      *  \return The application package user id.
      */
@@ -97,7 +112,7 @@ public:
     int GetUserID() const noexcept;
     
     /**
-     *  Get the application package group id. This function is thread safe.
+     *  Get the application package group id.
      *
      *  \return The application package group id.
      */
@@ -105,16 +120,15 @@ public:
     int GetGroupID() const noexcept;
     
     /**
-     *  Check if the application package is a OS bundled application. This function is
-     *  thread safe.
+     *  Check if the application of the package is an OS application.
      *
-     *  \return true if OS bundled, false if user installed.
+     *  \return The OS app type.
      */
     
-    bool GetOSApp() const noexcept;
+    OSAppType GetOSAppType() const noexcept;
     
     /**
-     *  Get wether application stopping is disabled or not. This function is thread safe.
+     *  Get wether application stopping is disabled or not.
      *
      *  \return true if disabled, false if not.
      */
@@ -122,7 +136,7 @@ public:
     bool GetStopDisabled() const noexcept;
     
     /**
-     *  Check if the application service should be used. This function is thread safe.
+     *  Check if the application service should be used.
      *
      *  \return true if usable, false if not.
      */
@@ -130,7 +144,7 @@ public:
     bool GetUseAppService() const noexcept;
     
     /**
-     *  Get the application service update timer. This function is thread safe.
+     *  Get the application service update timer.
      *
      *  \return The application service update timer in seconds.
      */
@@ -159,7 +173,7 @@ private:
     int i_UserID;
     int i_GroupID;
     
-    bool b_OSApp;
+    OSAppType e_OSAppType;
     bool b_StopDisabled;
     
     bool b_UseAppService;
