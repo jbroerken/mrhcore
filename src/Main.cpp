@@ -261,6 +261,7 @@ int main(int argc, char* argv[])
     
     // Create run directories
     CreateDirectory(MRH_CORE_PID_FILE_DIR);
+    CreateDirectory(MRH_CORE_TMP_COMMON_DIR_PATH);
     CreateDirectory(MRH_CORE_LOG_FILE_DIR);
     CreateDirectory(MRH_CORE_LAUNCH_INPUT_DIR);
     
