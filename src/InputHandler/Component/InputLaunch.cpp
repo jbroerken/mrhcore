@@ -34,7 +34,7 @@ namespace
     {
         APP_LAUNCH_S_SIZE_PACKAGE_LENGTH = sizeof(MRH_Uint32),
         APP_LAUNCH_S_SIZE_INPUT_LENGTH = sizeof(MRH_Uint32),
-        APP_LAUNCH_S_SIZE_LAUNCH_COMMAND_ID = sizeof(int),
+        APP_LAUNCH_S_SIZE_LAUNCH_COMMAND_ID = sizeof(MRH_Sint32),
     
     }Event_Launch_SOA_S_Size;
 
@@ -114,7 +114,7 @@ void InputLaunch::UpdateLaunch(Event const& c_Event)
     
     std::string s_PackagePath = std::string(c_Event.CastPointer<const char*>(APP_LAUNCH_S_PACKAGE_PATH),
                                             u32_PathLength);
-    int i_LaunchCommandID = c_Event.CastValue<MRH_Uint32>(APP_LAUNCH_S_LAUNCH_COMMAND_ID);
+    int i_LaunchCommandID = c_Event.CastValue<MRH_Sint32>(APP_LAUNCH_S_LAUNCH_COMMAND_ID);
     std::string s_LaunchInput = "";
     
     if (u32_InputLength > 0)
