@@ -157,8 +157,10 @@ void PlatformServicePool::DistributeSendEvents() noexcept
         // Check which type of event this is
         switch (Event.GetType())
         {
-            /* Event Version 1 */
-                
+            /**
+             *  Event Version 1
+             */
+ 
             // Unknown
             case MRH_EVENT_UNK:
                 
@@ -188,6 +190,7 @@ void PlatformServicePool::DistributeSendEvents() noexcept
             case MRH_EVENT_SAY_AVAIL_S:
             case MRH_EVENT_SAY_STRING_S:
             case MRH_EVENT_SAY_GET_METHOD_S:
+            case MRH_EVENT_SAY_REMOTE_NOTIFICATION_S:
             case MRH_EVENT_SAY_CUSTOM_COMMAND_S:
                 
             // Password
@@ -231,6 +234,10 @@ void PlatformServicePool::DistributeSendEvents() noexcept
                                                          " is not allowed to be sent to platform services!",
                                         "PlatformServicePool.cpp", __LINE__);
                 break;
+                
+            /**
+             *  All - User Event
+             */
                 
             // The event is not from a service, give it to all services requiring it
             default:

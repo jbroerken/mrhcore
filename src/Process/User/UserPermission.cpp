@@ -182,6 +182,10 @@ bool UserPermission::PermissionGiven(MRH_Uint32 u32_Type) noexcept
 {
     switch (u32_Type)
     {
+        /**
+         *  Event Version 1
+         */
+            
         // Unknown, error or default value
         case MRH_EVENT_UNK:
             return false;
@@ -229,6 +233,9 @@ bool UserPermission::PermissionGiven(MRH_Uint32 u32_Type) noexcept
         case MRH_EVENT_SAY_GET_METHOD_U:
         case MRH_EVENT_SAY_GET_METHOD_S:
             return p_Permission[Package::SAY] & PermissionSay::SAY_GET_METHOD;
+        case MRH_EVENT_SAY_REMOTE_NOTIFICATION_U:
+        case MRH_EVENT_SAY_REMOTE_NOTIFICATION_S:
+            return p_Permission[Package::SAY] & PermissionSay::SAY_REMOTE_NOTIFICATION;
         case MRH_EVENT_SAY_CUSTOM_COMMAND_U:
         case MRH_EVENT_SAY_CUSTOM_COMMAND_S:
             return p_Permission[Package::SAY] & PermissionSay::SAY_CUSTOM_COMMAND;
@@ -338,6 +345,10 @@ bool UserPermission::PermissionGiven(MRH_Uint32 u32_Type) noexcept
         case MRH_EVENT_NOTIFICATION_CUSTOM_COMMAND_S:
             return p_Permission[Package::NOTIFICATION] & PermissionNotification::NOTIFICATION_CUSTOM_COMMAND;
             
+        /**
+         *  Unk
+         */
+            
         // Default
         default:
             return false;
@@ -353,6 +364,10 @@ bool UserPermission::PasswordProtected(MRH_Uint32 u32_Type) noexcept
     switch (u32_Type)
     {
         // Some events are never protected, even on list (system events, etc)
+     
+        /**
+         *  Event Version 1
+         */
             
         // System
         case MRH_EVENT_UNK:
@@ -375,6 +390,10 @@ bool UserPermission::PasswordProtected(MRH_Uint32 u32_Type) noexcept
         // Service
         case MRH_EVENT_NOTIFICATION_CREATE_SERVICE_U: // Can't react to password event
             return false;
+            
+        /**
+         *  Unk
+         */
             
         default:
             return ProtectedEventList::Singleton().GetEventProtected(u32_Type);

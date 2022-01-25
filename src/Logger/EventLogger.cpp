@@ -171,6 +171,10 @@ std::string EventLogger::GetEventNameString(MRH_Uint32 u32_Type) noexcept
     
     switch (u32_Type)
     {
+        /**
+         *  Event Version 1
+         */
+            
         // Unknown
         case MRH_EVENT_UNK:
             s_Result = "MRH_EVENT_UNK";
@@ -248,6 +252,9 @@ std::string EventLogger::GetEventNameString(MRH_Uint32 u32_Type) noexcept
         case MRH_EVENT_SAY_GET_METHOD_U:
             s_Result = "MRH_EVENT_SAY_GET_METHOD_U";
             break;
+        case MRH_EVENT_SAY_REMOTE_NOTIFICATION_U:
+            s_Result = "MRH_EVENT_SAY_REMOTE_NOTIFICATION_U";
+            break;
         case MRH_EVENT_SAY_CUSTOM_COMMAND_U:
             s_Result = "MRH_EVENT_SAY_CUSTOM_COMMAND_U";
             break;
@@ -260,6 +267,9 @@ std::string EventLogger::GetEventNameString(MRH_Uint32 u32_Type) noexcept
             break;
         case MRH_EVENT_SAY_GET_METHOD_S:
             s_Result = "MRH_EVENT_SAY_GET_METHOD_S";
+            break;
+        case MRH_EVENT_SAY_REMOTE_NOTIFICATION_S:
+            s_Result = "MRH_EVENT_SAY_REMOTE_NOTIFICATION_S";
             break;
         case MRH_EVENT_SAY_CUSTOM_COMMAND_S:
             s_Result = "MRH_EVENT_SAY_CUSTOM_COMMAND_S";
@@ -450,6 +460,10 @@ std::string EventLogger::GetEventNameString(MRH_Uint32 u32_Type) noexcept
         case MRH_EVENT_NOTIFICATION_CUSTOM_COMMAND_S:
             s_Result = "MRH_EVENT_NOTIFICATION_CUSTOM_COMMAND_S";
             break;
+            
+        /**
+         *  Unk
+         */
             
         default:
             s_Result = "UNKNOWN EVENT";

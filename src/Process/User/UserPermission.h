@@ -162,7 +162,8 @@ protected:
         SAY_NONE = 0,                            // No say permissions
         SAY_SAY = 1,                             // Speech say events
         SAY_GET_METHOD = 2,                      // Get speech output method
-        SAY_CUSTOM_COMMAND = 4,                  // Allow sending and recieving of custom commands
+        SAY_REMOTE_NOTIFICATION = 4,             // Send remote notification
+        SAY_CUSTOM_COMMAND = 8,                  // Allow sending and recieving of custom commands
     
     }PermissionSay;
 
