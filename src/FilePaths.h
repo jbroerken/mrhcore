@@ -106,7 +106,7 @@
 //*************************************************************************************
 
 #ifndef MRH_CORE_PID_FILE_DIR
-    #define MRH_CORE_PID_FILE_DIR "/tmp/mrhpid/"
+    #define MRH_CORE_PID_FILE_DIR "/tmp/mrh/"
 #endif
 
 #ifndef MRH_CORE_USER_SERVICE_PID_FILE
