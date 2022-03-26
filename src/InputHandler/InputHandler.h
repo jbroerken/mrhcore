@@ -31,11 +31,9 @@
 #include "./Component/InputLaunch.h"
 #include "./Component/InputStop.h"
 #include "./Component/InputPassword.h"
-#include "./InputString.h"
 
 
-class InputHandler : public InputString,
-                     public InputLaunch,
+class InputHandler : public InputLaunch,
                      public InputStop,
                      public InputPassword
 {

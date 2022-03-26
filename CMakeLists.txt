@@ -137,8 +137,6 @@ set(SRC_LIST_INPUT_HANDLER "${SRC_DIR_PATH}/InputHandler/Component/InputPassword
                            "${SRC_DIR_PATH}/InputHandler/Component/InputStop.h"
                            "${SRC_DIR_PATH}/InputHandler/Component/InputLaunch.cpp"
                            "${SRC_DIR_PATH}/InputHandler/Component/InputLaunch.h"
-                           "${SRC_DIR_PATH}/InputHandler/InputString.cpp"
-                           "${SRC_DIR_PATH}/InputHandler/InputString.h"
                            "${SRC_DIR_PATH}/InputHandler/InputHandler.cpp"
                            "${SRC_DIR_PATH}/InputHandler/InputHandler.h"
                            "${SRC_DIR_PATH}/InputHandler/InputException.h")

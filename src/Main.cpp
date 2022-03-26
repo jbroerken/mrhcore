@@ -504,7 +504,6 @@ int main(int argc, char* argv[])
                 
                 // Reset input handler for new package process
                 p_Input->ClearPasswordVerification();
-                p_Input->ClearInput();
                 
                 // Set process info
                 // NOTE: This is handled here because launch requests can be sent from apps

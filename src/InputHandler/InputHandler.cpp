@@ -52,52 +52,61 @@ void InputHandler::Update(std::vector<Event> const& v_Event) noexcept
         {
             switch (Event.GetType())
             {
-                /* Launch */
+                /**
+                 *  Launch 
+                 */
                     
-                // NOTE: Timed launch events are not handled here, we expect
-                //       the handling to be done by the service. All we want
-                //       is a simple launch or clear launch event.
+                // @NOTE: Timed launch events are not handled here, we expect
+                //        the handling to be done by the service. All we want
+                //        is a simple launch or clear launch event.
                 //
-                //       Also, no group id check here! Timed launches have no group id,
-                //       they are created by the service alone without an App (the app
-                //       requesting them might already be terminated).
+                //        Also, no group id check here! Timed launches have no group id,
+                //        they are created by the service alone without an App (the app
+                //        requesting them might already be terminated).
                 //
                 case MRH_EVENT_APP_LAUNCH_SOA_S:
+                {
                     UpdateLaunch(Event);
                     break;
+                }
                 case MRH_EVENT_APP_LAUNCH_SOA_CLEAR_S:
+                {
                     ClearLaunchRequest();
                     break;
+                }
                     
-                /* Listen */
+                /**
+                 *  Listen
+                 */
                     
                 case MRH_EVENT_LISTEN_STRING_S:
-                    AddVoiceInput(Event);
-                    
-                    if (l_Finished.size() > 0)
+                {
+                    if (UpdateStopCommand(Event) == true)
                     {
-                        for (auto& String : l_Finished)
-                        {
-                            if (UpdateStopCommand(String) == true)
-                            {
-                                // Force quit by user should also reset that apps launches!
-                                ClearLaunchRequest();
-                                break;
-                            }
-                        }
-                        
-                        l_Finished.clear();
+                        // Force quit by user should also reset that apps launches!
+                        ClearLaunchRequest();
                     }
                     break;
+                }
                     
-                /* Password */
+                /**
+                 *  Password
+                 */
                     
                 case MRH_EVENT_PASSWORD_CHECK_S:
+                {
                     UpdateVerification(Event);
                     break;
+                }
+                    
+                /**
+                 *  Unk
+                 */
                     
                 default:
+                {
                     break;
+                }
             }
         }
         catch (InputException& e)

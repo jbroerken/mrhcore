@@ -29,6 +29,7 @@
 #include <libmrhvt/Input/MRH_InputTrigger.h>
 
 // Project
+#include "../../Event/Event.h"
 #include "../InputException.h"
 
 
@@ -56,7 +57,7 @@ private:
     // Data
     //*************************************************************************************
 
-    MRH_InputTrigger c_StopTriggerList;
+    MRH_InputTrigger c_StopTrigger;
     
 protected:
 
@@ -91,12 +92,12 @@ protected:
     /**
      *  Check a input string for a stop command.
      *
-     *  \param s_String The UTF-8 input string to check.
+     *  \param c_Event The input event to check.
      *
-     *  \return true if the stop command was given, false if not.
+     *  \return true a stop command was found, false if not.
      */
     
-    bool UpdateStopCommand(std::string s_String) noexcept;
+    bool UpdateStopCommand(Event const& c_Event) noexcept;
     
     //*************************************************************************************
     // Data

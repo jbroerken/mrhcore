@@ -23,6 +23,7 @@
 
 // External
 #include <libmrhvt/String/MRH_Convert.h>
+#include <libmrhvt/String/MRH_LocalisedPath.h>
 
 // Project
 #include "./InputStop.h"
@@ -31,6 +32,14 @@
 // Pre-defined
 namespace
 {
+    typedef enum
+    {
+        LISTEN_STRING_S_SIZE_STRING_ID = sizeof(MRH_Uint32)
+        
+    }Event_Listen_String_S_Size;
+    
+    constexpr MRH_Uint32 u32_MinDataSize = LISTEN_STRING_S_SIZE_STRING_ID + 1; // terminator
+    
     constexpr MRH_Sint32 s32_StopTriggerValue = 0;
     constexpr MRH_Uint32 u32_StopTriggerWeight = 300;
 }
@@ -40,11 +49,11 @@ namespace
 // Constructor / Destructor
 //*************************************************************************************
 
-InputStop::InputStop() : c_StopTriggerList(MRH_CORE_INPUT_STOP_TRIGGER_PATH,
-                                           MRH_CORE_INPUT_STOP_TRIGGER_FILE),
+InputStop::InputStop() : c_StopTrigger(MRH_LocalisedPath::GetPath(MRH_CORE_INPUT_STOP_TRIGGER_PATH, 
+                                                                  MRH_CORE_INPUT_STOP_TRIGGER_FILE)),
                          b_StopPackage(false)
 {
-    if (c_StopTriggerList.GetTriggerCount() == 0)
+    if (c_StopTrigger.GetTriggers().size() == 0)
     {
         throw InputException("Stop commands trigger file has no triggers to use!", "Stop");
     }
@@ -57,11 +66,18 @@ InputStop::~InputStop() noexcept
 // Update
 //*************************************************************************************
 
-bool InputStop::UpdateStopCommand(std::string s_String) noexcept
+bool InputStop::UpdateStopCommand(Event const& c_Event) noexcept
 {
-    MRH_StringConvert::ToLower(s_String);
+    if (c_Event.GetDataSize() < u32_MinDataSize)
+    {
+        return false;
+    }
     
-    MRH_InputTrigger::Evaluation c_Evaluation = c_StopTriggerList.Evaluate(s_String, u32_StopTriggerWeight);
+    std::string s_String((const char*)&(c_Event.GetData()[LISTEN_STRING_S_SIZE_STRING_ID]),
+                         c_Event.GetDataSize() - LISTEN_STRING_S_SIZE_STRING_ID);
+    
+    MRH_StringConvert::ToLower(s_String);
+    MRH_InputTrigger::Evaluation c_Evaluation = c_StopTrigger.Evaluate(s_String, u32_StopTriggerWeight);
     
     if (c_Evaluation.first == s32_StopTriggerValue && c_Evaluation.second >= u32_StopTriggerWeight)
     {
