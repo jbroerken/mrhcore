@@ -153,7 +153,7 @@ void UserPermission::FilterEventsVersion(std::vector<Event>& v_Event, int i_Even
              */
                 
             case 1:
-                if (Event->GetType() > MRH_EVENT_NOTIFICATION_CUSTOM_COMMAND_S)
+                if (Event->GetType() > MRH_EVENT_TYPE_MAX)
                 {
                     Event = v_Event.erase(Event);
                 }
@@ -233,9 +233,11 @@ bool UserPermission::PermissionGiven(MRH_Uint32 u32_Type) noexcept
         case MRH_EVENT_SAY_GET_METHOD_U:
         case MRH_EVENT_SAY_GET_METHOD_S:
             return p_Permission[Package::SAY] & PermissionSay::SAY_GET_METHOD;
-        case MRH_EVENT_SAY_REMOTE_NOTIFICATION_U:
-        case MRH_EVENT_SAY_REMOTE_NOTIFICATION_S:
-            return p_Permission[Package::SAY] & PermissionSay::SAY_REMOTE_NOTIFICATION;
+        case MRH_EVENT_SAY_NOTIFICATION_APP_U:
+        case MRH_EVENT_SAY_NOTIFICATION_APP_S:
+            return p_Permission[Package::SAY] & PermissionSay::SAY_NOTIFICATION_APP;
+        case MRH_EVENT_SAY_NOTIFICATION_SERVICE_U:
+            return p_Permission[Package::SAY] & PermissionSay::SAY_NOTIFICATION_SERVICE;
         case MRH_EVENT_SAY_CUSTOM_COMMAND_U:
         case MRH_EVENT_SAY_CUSTOM_COMMAND_S:
             return p_Permission[Package::SAY] & PermissionSay::SAY_CUSTOM_COMMAND;
@@ -324,26 +326,6 @@ bool UserPermission::PermissionGiven(MRH_Uint32 u32_Type) noexcept
         case MRH_EVENT_APP_CUSTOM_COMMAND_U:
         case MRH_EVENT_APP_CUSTOM_COMMAND_S:
             return p_Permission[Package::APP] & PermissionApplication::APPLICATION_CUSTOM_COMMAND;
-             
-        // Notification
-        case MRH_EVENT_NOTIFICATION_AVAIL_U:
-        case MRH_EVENT_NOTIFICATION_AVAIL_S:
-            return p_Permission[Package::NOTIFICATION] > PermissionNotification::NOTIFICATION_NONE;
-        case MRH_EVENT_NOTIFICATION_CREATE_APP_U:
-        case MRH_EVENT_NOTIFICATION_CREATE_APP_S:
-        case MRH_EVENT_NOTIFICATION_CREATE_SERVICE_U:
-            return p_Permission[Package::NOTIFICATION] & PermissionNotification::NOTIFICATION_CREATE;
-        case MRH_EVENT_NOTIFICATION_DESTROY_APP_U:
-        case MRH_EVENT_NOTIFICATION_DESTROY_APP_S:
-            return p_Permission[Package::NOTIFICATION] & PermissionNotification::NOTIFICATION_DESTROY;
-        case MRH_EVENT_NOTIFICATION_GET_WAITING_U:
-        case MRH_EVENT_NOTIFICATION_GET_WAITING_S:
-        case MRH_EVENT_NOTIFICATION_GET_NEXT_U:
-        case MRH_EVENT_NOTIFICATION_GET_NEXT_S:
-            return p_Permission[Package::NOTIFICATION] & PermissionNotification::NOTIFICATION_RETRIEVE;
-        case MRH_EVENT_NOTIFICATION_CUSTOM_COMMAND_U:
-        case MRH_EVENT_NOTIFICATION_CUSTOM_COMMAND_S:
-            return p_Permission[Package::NOTIFICATION] & PermissionNotification::NOTIFICATION_CUSTOM_COMMAND;
             
         /**
          *  Unk
@@ -388,7 +370,7 @@ bool UserPermission::PasswordProtected(MRH_Uint32 u32_Type) noexcept
         case MRH_EVENT_APP_LAUNCH_SOA_TIMER_REMINDER_S: // Reminder sent from service
             
         // Service
-        case MRH_EVENT_NOTIFICATION_CREATE_SERVICE_U: // Can't react to password event
+        case MRH_EVENT_SAY_NOTIFICATION_SERVICE_U: // Can't react to password event
             return false;
             
         /**
@@ -409,7 +391,7 @@ bool UserPermission::IsServiceEvent(MRH_Uint32 u32_Type) noexcept
     switch (u32_Type)
     {
         // Services have little in terms of events, just list allowed ones
-        case MRH_EVENT_NOTIFICATION_CREATE_SERVICE_U:
+        case MRH_EVENT_SAY_NOTIFICATION_SERVICE_U:
             return true;
             
         default:

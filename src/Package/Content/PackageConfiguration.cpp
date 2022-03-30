@@ -50,7 +50,6 @@ namespace
         KEY_PERMISSIONS_SAY,
         KEY_PERMISSIONS_PASSWORD,
         KEY_PERMISSIONS_USER,
-        KEY_PERMISSIONS_NOTIFICATION,
         
         // Run As Key
         KEY_RUN_AS_USER_ID,
@@ -87,7 +86,6 @@ namespace
         "EventSay",
         "EventPassword",
         "EventUser",
-        "EventNotification",
         
         // Run As Key
         "UserID",
@@ -108,7 +106,6 @@ namespace
 
 // @NOTE: Pi is not a fan of [ 0 ... X ] = PackageConfiguration::u32_NoPermission
 PackageConfiguration::PackageConfiguration(std::string const& s_ConfigurationPath) : p_Permission { PackageConfiguration::u32_NoPermission,
-                                                                                                    PackageConfiguration::u32_NoPermission,
                                                                                                     PackageConfiguration::u32_NoPermission,
                                                                                                     PackageConfiguration::u32_NoPermission,
                                                                                                     PackageConfiguration::u32_NoPermission,
@@ -147,7 +144,6 @@ PackageConfiguration::PackageConfiguration(std::string const& s_ConfigurationPat
                     p_Permission[SAY] = static_cast<EventPermission>(std::stoull(Block.GetValue(p_Identifier[KEY_PERMISSIONS_SAY])));
                     p_Permission[PASSWORD] = static_cast<EventPermission>(std::stoull(Block.GetValue(p_Identifier[KEY_PERMISSIONS_PASSWORD])));
                     p_Permission[USER] = static_cast<EventPermission>(std::stoull(Block.GetValue(p_Identifier[KEY_PERMISSIONS_USER])));
-                    p_Permission[NOTIFICATION] = static_cast<EventPermission>(std::stoull(Block.GetValue(p_Identifier[KEY_PERMISSIONS_NOTIFICATION])));
                 }
                 catch (std::exception& e) // + MRH_BFException
                 {

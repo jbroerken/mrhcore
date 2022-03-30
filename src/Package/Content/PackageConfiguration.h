@@ -50,9 +50,8 @@ public:
         SAY = 3,
         PASSWORD = 4,
         USER = 5,
-        NOTIFICATION = 6,
         
-        EVENT_PERMISSION_LIST_MAX = NOTIFICATION,
+        EVENT_PERMISSION_LIST_MAX = USER,
         
         EVENT_PERMISSION_LIST_COUNT = EVENT_PERMISSION_LIST_MAX + 1
         

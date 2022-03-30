@@ -190,7 +190,7 @@ void PlatformServicePool::DistributeSendEvents() noexcept
             case MRH_EVENT_SAY_AVAIL_S:
             case MRH_EVENT_SAY_STRING_S:
             case MRH_EVENT_SAY_GET_METHOD_S:
-            case MRH_EVENT_SAY_REMOTE_NOTIFICATION_S:
+            case MRH_EVENT_SAY_NOTIFICATION_APP_S:
             case MRH_EVENT_SAY_CUSTOM_COMMAND_S:
                 
             // Password
@@ -221,14 +221,6 @@ void PlatformServicePool::DistributeSendEvents() noexcept
             case MRH_EVENT_APP_LAUNCH_SOA_CLEAR_S:
             case MRH_EVENT_APP_LAUNCH_SOA_CLEAR_TIMER_S:
             case MRH_EVENT_APP_CUSTOM_COMMAND_S:
-                
-            // Notifications
-            case MRH_EVENT_NOTIFICATION_AVAIL_S:
-            case MRH_EVENT_NOTIFICATION_CREATE_APP_S:
-            case MRH_EVENT_NOTIFICATION_DESTROY_APP_S:
-            case MRH_EVENT_NOTIFICATION_GET_WAITING_S:
-            case MRH_EVENT_NOTIFICATION_GET_NEXT_S:
-            case MRH_EVENT_NOTIFICATION_CUSTOM_COMMAND_S:
                 Logger::Singleton().Log(Logger::WARNING, "Event " +
                                                          std::to_string(Event.GetType()) +
                                                          " is not allowed to be sent to platform services!",

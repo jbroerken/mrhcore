@@ -252,8 +252,11 @@ std::string EventLogger::GetEventNameString(MRH_Uint32 u32_Type) noexcept
         case MRH_EVENT_SAY_GET_METHOD_U:
             s_Result = "MRH_EVENT_SAY_GET_METHOD_U";
             break;
-        case MRH_EVENT_SAY_REMOTE_NOTIFICATION_U:
-            s_Result = "MRH_EVENT_SAY_REMOTE_NOTIFICATION_U";
+        case MRH_EVENT_SAY_NOTIFICATION_APP_U:
+            s_Result = "MRH_EVENT_SAY_NOTIFICATION_APP_U";
+            break;
+        case MRH_EVENT_SAY_NOTIFICATION_SERVICE_U:
+            s_Result = "MRH_EVENT_SAY_NOTIFICATION_SERVICE_U";
             break;
         case MRH_EVENT_SAY_CUSTOM_COMMAND_U:
             s_Result = "MRH_EVENT_SAY_CUSTOM_COMMAND_U";
@@ -268,8 +271,8 @@ std::string EventLogger::GetEventNameString(MRH_Uint32 u32_Type) noexcept
         case MRH_EVENT_SAY_GET_METHOD_S:
             s_Result = "MRH_EVENT_SAY_GET_METHOD_S";
             break;
-        case MRH_EVENT_SAY_REMOTE_NOTIFICATION_S:
-            s_Result = "MRH_EVENT_SAY_REMOTE_NOTIFICATION_S";
+        case MRH_EVENT_SAY_NOTIFICATION_APP_S:
+            s_Result = "MRH_EVENT_SAY_NOTIFICATION_APP_S";
             break;
         case MRH_EVENT_SAY_CUSTOM_COMMAND_S:
             s_Result = "MRH_EVENT_SAY_CUSTOM_COMMAND_S";
@@ -417,48 +420,6 @@ std::string EventLogger::GetEventNameString(MRH_Uint32 u32_Type) noexcept
             break;
         case MRH_EVENT_APP_CUSTOM_COMMAND_S:
             s_Result = "MRH_EVENT_APP_CUSTOM_COMMAND_S";
-            break;
-            
-        // Notifications
-        case MRH_EVENT_NOTIFICATION_AVAIL_U:
-            s_Result = "MRH_EVENT_NOTIFICATION_AVAIL_U";
-            break;
-        case MRH_EVENT_NOTIFICATION_CREATE_APP_U:
-            s_Result = "MRH_EVENT_NOTIFICATION_CREATE_APP_U";
-            break;
-        case MRH_EVENT_NOTIFICATION_CREATE_SERVICE_U:
-            s_Result = "MRH_EVENT_NOTIFICATION_CREATE_SERVICE_U";
-            break;
-        case MRH_EVENT_NOTIFICATION_DESTROY_APP_U:
-            s_Result = "MRH_EVENT_NOTIFICATION_DESTROY_APP_U";
-            break;
-        case MRH_EVENT_NOTIFICATION_GET_WAITING_U:
-            s_Result = "MRH_EVENT_NOTIFICATION_GET_WAITING_U";
-            break;
-        case MRH_EVENT_NOTIFICATION_GET_NEXT_U:
-            s_Result = "MRH_EVENT_NOTIFICATION_GET_NEXT_U";
-            break;
-        case MRH_EVENT_NOTIFICATION_CUSTOM_COMMAND_U:
-            s_Result = "MRH_EVENT_NOTIFICATION_CUSTOM_COMMAND_U";
-            break;
-            
-        case MRH_EVENT_NOTIFICATION_AVAIL_S:
-            s_Result = "MRH_EVENT_NOTIFICATION_AVAIL_S";
-            break;
-        case MRH_EVENT_NOTIFICATION_CREATE_APP_S:
-            s_Result = "MRH_EVENT_NOTIFICATION_CREATE_APP_S";
-            break;
-        case MRH_EVENT_NOTIFICATION_DESTROY_APP_S:
-            s_Result = "MRH_EVENT_NOTIFICATION_DESTROY_APP_S";
-            break;
-        case MRH_EVENT_NOTIFICATION_GET_WAITING_S:
-            s_Result = "MRH_EVENT_NOTIFICATION_GET_WAITING_S";
-            break;
-        case MRH_EVENT_NOTIFICATION_GET_NEXT_S:
-            s_Result = "MRH_EVENT_NOTIFICATION_GET_NEXT_S";
-            break;
-        case MRH_EVENT_NOTIFICATION_CUSTOM_COMMAND_S:
-            s_Result = "MRH_EVENT_NOTIFICATION_CUSTOM_COMMAND_S";
             break;
             
         /**

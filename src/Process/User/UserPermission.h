@@ -162,7 +162,8 @@ protected:
         SAY_NONE = 0,                            // No say permissions
         SAY_SAY = 1,                             // Speech say events
         SAY_GET_METHOD = 2,                      // Get speech output method
-        SAY_REMOTE_NOTIFICATION = 4,             // Send remote notification
+        SAY_NOTIFICATION_APP = 4,                // Send notification from app 
+        SAY_NOTIFICATION_SERVICE = 4,            // Send notification from service
         SAY_CUSTOM_COMMAND = 8,                  // Allow sending and recieving of custom commands
     
     }PermissionSay;
@@ -195,18 +196,6 @@ protected:
         USER_CUSTOM_COMMAND = 512,               // Allow sending and recieving of custom commands
     
     }PermissionUser;
-
-    typedef enum
-    {
-        /* Event Version 1 */
-        
-        NOTIFICATION_NONE = 0,                   // No notification permissions
-        NOTIFICATION_CREATE = 1,                 // Create notifications
-        NOTIFICATION_DESTROY = 2,                // Destroy notifications
-        NOTIFICATION_RETRIEVE = 4,               // Get notifications waiting to be recieved by this app
-        NOTIFICATION_CUSTOM_COMMAND = 8,         // Allow sending and recieving of custom commands
-    
-    }PermissionNotification;
 
     //*************************************************************************************
     // Constructor / Destructor
