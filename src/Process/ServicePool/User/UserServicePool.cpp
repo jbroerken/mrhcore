@@ -140,8 +140,8 @@ void UserServicePool::Reload()
         UserServiceList c_ServiceList;
         
         // Remove all services no longer on the list
-        // NOTE: The thread is stopped, no locking needed for service
-        //       operations.
+        // @NOTE: The thread is stopped, no locking needed for service
+        //        operations.
         for (auto Service = v_Service.begin(); Service != v_Service.end();)
         {
             if ((*Service)->GetProcess()->GetRunning() == false || c_ServiceList.GetUserService((*Service)->GetProcess()->GetRunPath()) == false)

@@ -88,8 +88,8 @@ PoolService::~PoolService() noexcept
 void PoolService::Update(PoolService* p_Service, MRH_Uint32 u32_EventLimit, MRH_Sint32 s32_TimeoutMS) noexcept
 {
     // Get values directly, a bit more readable
-    // NOTE: This function can only be called from a instance itself,
-    //       so we're able to use raw pointers more safely
+    // @NOTE: This function can only be called from a instance itself,
+    //        so we're able to use raw pointers more safely
     std::shared_ptr<PoolCondition>& p_Condition = p_Service->p_Condition;
     std::shared_ptr<ServiceProcess>& p_Process = p_Service->p_Process;
     std::vector<Event>* p_Queue = p_Service->p_Queue;
@@ -98,7 +98,7 @@ void PoolService::Update(PoolService* p_Service, MRH_Uint32 u32_EventLimit, MRH_
     bool b_Send = p_Process->GetCanRecieve();
     
     // Constantly update, stalled by recieving events
-    // NOTE: Nothing of the process needs to be locked, only PoolEvents data!
+    // @NOTE: Nothing of the process needs to be locked, only PoolEvents data!
     while (p_Process->GetRunning() == true)
     {
         // Read incoming events

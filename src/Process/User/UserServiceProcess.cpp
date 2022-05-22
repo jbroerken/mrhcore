@@ -63,7 +63,7 @@ UserServiceProcess::UserServiceProcess() : ServiceProcess(TransmissionSource::So
 
 UserServiceProcess::~UserServiceProcess() noexcept
 {
-    // NOTE: ServiceProcess class terminates process on destruction!
+    // @NOTE: ServiceProcess class terminates process on destruction!
 }
 
 //*************************************************************************************

@@ -57,7 +57,7 @@ public:
         
     }EventPermissionList;
     
-    // NOTE: Bit flags are used (1, 2, 4, 8, etc.) to allow for combining types!
+    // @NOTE: Bit flags are used (1, 2, 4, 8, etc.) to allow for combining types!
     typedef enum
     {
         NONE = 0, // Not an OS App

@@ -39,7 +39,7 @@ namespace
         
         // User Event Route Key
         KEY_ROUTE_ID = 1,
-        // NOTE: Event name keys are not known
+        // @NOTE: Event name keys are not known
         
         // Bounds
         IDENTIFIER_MAX = KEY_ROUTE_ID,

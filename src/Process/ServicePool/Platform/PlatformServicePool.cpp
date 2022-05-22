@@ -135,13 +135,13 @@ PlatformServicePool::~PlatformServicePool() noexcept
 void PlatformServicePool::DistributeSendEvents() noexcept
 {
     // Lock send queue
-    // NOTE: This lock stops the service pool update thread. The caller
-    //       would have to wait anyway until all events are processed.
+    // @NOTE: This lock stops the service pool update thread. The caller
+    //        would have to wait anyway until all events are processed.
     p_Mutex[SEND].lock();
     
     // Loop event list and service list. This makes sure events are properly
     // duplicated for each service with a valid source.
-    // NOTE: Event list is the outer loop for shorter inner loops
+    // @NOTE: Event list is the outer loop for shorter inner loops
     for (auto& Event : p_Queue[SEND])
     {
         // Is this a valid event number?

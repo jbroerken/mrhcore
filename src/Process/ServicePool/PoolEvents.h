@@ -131,8 +131,8 @@ protected:
     std::mutex p_Mutex[QUEUE_TYPE_COUNT];
     
     // Event storage
-    // NOTE: We store both here instead of giving them directly to the destination
-    //       This is done to minimize wait times for mutexes
+    // @NOTE: We store both here instead of giving them directly to the destination
+    //        This is done to minimize wait times for mutexes
     std::vector<Event> p_Queue[QUEUE_TYPE_COUNT];
 };
 

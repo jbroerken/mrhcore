@@ -98,8 +98,8 @@ void UserPermission::FilterEventsPermission(std::vector<Event>& v_Event, bool b_
         u32_CurrentEvent = Event->GetType();
         
         // Event permissions not met?
-        // NOTE: Service events see the user process type as a permission
-        //       So, service events require a service, user application events a user application
+        // @NOTE: Service events see the user process type as a permission
+        //        So, service events require a service, user application events a user application
         if (IsServiceEvent(u32_CurrentEvent) != b_IsService || PermissionGiven(u32_CurrentEvent) == false)
         {
             c_Logger.Log(Logger::WARNING, "Cannot send user process event: Missing permissions for event " +

@@ -219,9 +219,9 @@ void ServicePool::RetrieveRecievedEvents() noexcept
 void ServicePool::DistributeSendEvents() noexcept
 {
     // Lock send queue
-    // NOTE: We lock for the whole distribution duration so that
-    //       all current events are sent to all services, unlocking
-    //       after each service might cause us to miss events
+    // @NOTE: We lock for the whole distribution duration so that
+    //        all current events are sent to all services, unlocking
+    //        after each service might cause us to miss events
     p_Mutex[SEND].lock();
     
     for (auto& Service : v_Service)

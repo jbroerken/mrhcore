@@ -45,7 +45,7 @@ PlatformServiceProcess::PlatformServiceProcess() : ServiceProcess(TransmissionSo
 
 PlatformServiceProcess::~PlatformServiceProcess() noexcept
 {
-    // NOTE: ServiceProcess class terminates process on destruction!
+    // @NOTE: ServiceProcess class terminates process on destruction!
 }
 
 //*************************************************************************************

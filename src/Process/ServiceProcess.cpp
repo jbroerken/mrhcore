@@ -41,7 +41,7 @@ ServiceProcess::ServiceProcess(TransmissionSource::SourceType e_Type,
 
 ServiceProcess::~ServiceProcess() noexcept
 {
-    // NOTE: Process class terminates process on destruction!
+    // @NOTE: Process class terminates process on destruction!
 }
 
 //*************************************************************************************

@@ -76,7 +76,7 @@ UserProcess::~UserProcess() noexcept
     std::ofstream f_File(MRH_USER_PROCESS_PID_FILE_PATH, std::ios::trunc);
     f_File.close();
     
-    // NOTE: Process class terminates process on destruction!
+    // @NOTE: Process class terminates process on destruction!
 }
 
 //*************************************************************************************
@@ -336,9 +336,9 @@ void UserProcess::AddSendEvents(std::vector<Event>& v_Event) noexcept
     {
         case SEND_RESPONSE:
             // Reset completed
-            // NOTE: We don't store events like speech input for instant recieval
-            //       The app should inform the user (or the device - lights, etc.)
-            //       once the app is available to use.
+            // @NOTE: We don't store events like speech input for instant recieval
+            //        The app should inform the user (or the device - lights, etc.)
+            //        once the app is available to use.
             v_Event.insert(v_Event.begin(), Event(u32_EventGroupID,
                                                   MRH_EVENT_PS_RESET_ACKNOLEDGED_U,
                                                   NULL,
@@ -348,7 +348,7 @@ void UserProcess::AddSendEvents(std::vector<Event>& v_Event) noexcept
                                     "UserProcess.cpp", __LINE__);
         case RESET_COMPLETE:
             // Check app permissions and password, filter events
-            // NOTE: We don't add missing permission events here - some services always send without request
+            // @NOTE: We don't add missing permission events here - some services always send without request
             FilterEventsPermission(v_Event, false);
             
             // We now add all no permission events in front of the other events

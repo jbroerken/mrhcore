@@ -55,19 +55,17 @@ Process::~Process() noexcept
 
 void Process::Run(std::string s_BinaryPath, std::vector<std::vector<char>> v_Arg)
 {
-    // Check
     if (GetRunning() == true)
     {
         throw ProcessException("Tried to start a process with another process of this type already running!");
     }
     
-    // Fork the process
+    // Fork the process first
     s32_ProcessID = fork();
     
     // Check results
     if (s32_ProcessID < 0)
     {
-        // Failed
         throw ProcessException("Failed to fork process: " + std::string(std::strerror(errno)) + " (" + std::to_string(errno) + ")!");
     }
     else if (s32_ProcessID > 0)
@@ -77,7 +75,6 @@ void Process::Run(std::string s_BinaryPath, std::vector<std::vector<char>> v_Arg
     }
     else
     {
-        // Log
         Logger::Singleton().Log(Logger::INFO, "Starting process " +
                                               s_BinaryPath +
                                               ":",
@@ -125,7 +122,6 @@ void Process::Run(std::string s_BinaryPath, std::vector<std::vector<char>> v_Arg
 
 void Process::Signal(int i_Signal) noexcept
 {
-    // Running?
     if (GetRunning() == false)
     {
         return;
@@ -151,7 +147,6 @@ void Process::Signal(int i_Signal) noexcept
 
 void Process::Stop(bool b_Force) noexcept
 {
-    // Signal end to child
     if (GetRunning() == false)
     {
         return;

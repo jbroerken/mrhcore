@@ -280,7 +280,7 @@ int main(int argc, char* argv[])
     
     try
     {
-        // NOTE: Platform and user pool start on construction!
+        // @NOTE: Platform and user pool start on construction!
         p_PlatformPool = new PlatformServicePool();
         p_UserPool = new UserServicePool();
         p_UserProcess = new UserProcess();
@@ -506,8 +506,8 @@ int main(int argc, char* argv[])
                 p_Input->ClearPasswordVerification();
                 
                 // Set process info
-                // NOTE: This is handled here because launch requests can be sent from apps
-                //       and that request might be a home launch (not automated)
+                // @NOTE: This is handled here because launch requests can be sent from apps
+                //        and that request might be a home launch (not automated)
                 if (c_Request.s_PackagePath.compare(c_CoreConfiguration.GetHomePackagePath()) == 0)
                 {
                     b_UserProcessIsHome = true;
@@ -556,7 +556,7 @@ int main(int argc, char* argv[])
     }
     
     // All done, now terminate
-    // NOTE: We give the user process extra time to stop
+    // @NOTE: We give the user process extra time to stop
     StopProcess(p_UserProcess,
                 c_CoreConfiguration.GetForceStopTimerS(),
                 c_CoreConfiguration.GetWaitSleepTimerMS());
