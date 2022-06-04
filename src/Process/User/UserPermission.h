@@ -163,8 +163,8 @@ protected:
         SAY_SAY = 1,                             // Speech say events
         SAY_GET_METHOD = 2,                      // Get speech output method
         SAY_NOTIFICATION_APP = 4,                // Send notification from app 
-        SAY_NOTIFICATION_SERVICE = 4,            // Send notification from service
-        SAY_CUSTOM_COMMAND = 8,                  // Allow sending and recieving of custom commands
+        SAY_NOTIFICATION_SERVICE = 8,            // Send notification from service
+        SAY_CUSTOM_COMMAND = 16,                  // Allow sending and recieving of custom commands
     
     }PermissionSay;
 

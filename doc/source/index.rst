@@ -26,6 +26,7 @@ exchange IPC methods as well as permissions and other enchancements.
    :caption: Contents:
 
    Building/Building
+   Configurations/Configurations
    Run_Diagrams/Run_Diagrams
    Event_Handling/Event_Handling
    Application_Handling/Application_Handling
