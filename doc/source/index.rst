@@ -27,7 +27,7 @@ exchange IPC methods as well as permissions and other enchancements.
 
    Building/Building
    Configurations/Configurations
-   Run_Diagrams/Run_Diagrams
+   Packages/Packages
    Event_Handling/Event_Handling
    Application_Handling/Application_Handling
    A_Service_Handling/A_Service_Handling
