@@ -17,8 +17,30 @@ those limits.
 
 Event Limitations
 -----------------
+Events are limited by the application permissions and password verification. 
+mrhcore will check the set permissions before handing off events in either 
+direction discard them if permissions are missing.
 
-# TODO: 1. Absatz Permissions (Note zu PERMISSION DENIED und PASSWORD REQUIRED), 2. Absatz Event Group ID
+mrhcore will notifiy the running user application if permissions for an event 
+are missing. mrhcore will send the event **MRH_EVENT_PERMISSION_DENIED** if 
+event permissions are missing and the event **MRH_EVENT_PASSWORD_REQUIRED** if 
+password verification is required for the event.
+
+.. note:: 
+
+    Only events sent by the user application will cause response events 
+    to be sent to the user application.
+    
+
+Events are also limited by the event group ID in use. User applications 
+can only receive events intended for the running application by checking 
+the event group ID of the event.
+
+.. note::
+
+    A certain few events have no group ID set and will always be given 
+    to the user application.
+
 
 Event Reset
 -----------
@@ -27,14 +49,45 @@ exchange between the running user application and platform services.
 This event reset has to happen after every application launch and 
 always works in the same way.
 
-# TODO: Process
+The reset event process begins by receiving **MRH_EVENT_PS_RESET_REQUEST_U** 
+from the currently running application, which will be given to all services 
+to inform them of the currently running application package. The event 
+has to contain the full path to the package directory. 
 
-Receiving Events
-----------------
+mrhcore will send the **MRH_EVENT_PS_RESET_ACKNOLEDGED_U** event after receiving 
+the reset request, which tells the application that the reset succeeded and that 
+the services are now informed of the current package.This event also signals that 
+sending normal events is now allowed.
 
-# TODO: Diagram, explain
+.. note:: 
 
-Sending Events
---------------
+    mrhcore will discard all other events until the event reset process has 
+    been completed.
 
-# TODO: Diagram, explain
+
+Exchanging Events
+-----------------
+mrhcore exchanges events between the running user application and available 
+platform services by performing a looped upate.
+
+mrhcore will first wait for events sent by the running user application and stores 
+them until they are able to be given to the platform services they are intended 
+for. 
+
+.. note:: 
+
+    There is no guarantee that all events are received completely in one update.
+    
+
+Sending events to the user application happens after events were either received or 
+the timeout for receiving events expired. The core will send all events received from 
+platform services which were added between the last send and the current send.
+
+.. warning::
+
+    Events are sent in the order they were added to the send queue. Sending will 
+    stop if the current event to send failed to do so.
+
+
+The number of events sent and received is limited by the event limits set in the 
+:doc:`core configuration <../Configurations/Core_Configuration>`.
