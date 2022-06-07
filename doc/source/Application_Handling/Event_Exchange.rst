@@ -1,8 +1,8 @@
 **************
 Event Exchange
 **************
-All applications sent by a user application are sent with the help of 
-a event queue provided by mrhcore. The core receives events from a 
+All events exchanged by a user application are sent and received with the 
+help of a event queue provided by mrhcore. The core receives events from a 
 user application to hand to matching platform services and send platform 
 service events to the user application.
 
@@ -30,6 +30,16 @@ password verification is required for the event.
 
     Only events sent by the user application will cause response events 
     to be sent to the user application.
+    
+    
+Certain events are not able to be password protected to limit their use. 
+This is done to ensure nonsensical protections like protecting the password 
+verification and important system events are always accessible.
+
+.. toctree::
+   :maxdepth: 1
+
+   Version 1 Events<Event_Exchange/Version_1>
     
 
 Events are also limited by the event group ID in use. User applications 

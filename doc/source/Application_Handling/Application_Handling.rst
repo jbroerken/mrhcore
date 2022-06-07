@@ -13,7 +13,6 @@ operation. Applications are then updated until the application is stopped.
 
 .. toctree::
    :maxdepth: 1
-   :caption: Actions:
 
    Application_Types
    Application_Starting
