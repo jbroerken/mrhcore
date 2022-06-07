@@ -56,15 +56,15 @@ Service Update
 The service pool is used to update user application services. Other 
 components of mrhcore never interact with the services directly. 
 
-The service pool itself waits until one of the services signals available 
-data to the service pool, at which point the service pool starts to check 
-the currently running services for updates.
-
 .. note::
 
     Certain update behaviours (like event limits) are handled by the service 
     pool instead of the service process itself.
-    
+
+
+The service pool itself waits until one of the services signals available 
+data to the service pool, at which point the service pool starts to check 
+the currently running services for received data.
     
 .. warning::
 

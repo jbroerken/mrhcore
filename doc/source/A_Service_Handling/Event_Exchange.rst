@@ -46,7 +46,7 @@ applications.
 
 Exchanging Events
 -----------------
-mrhcore exchanges events between the running user application and available 
+mrhcore exchanges events between running user application services and available 
 platform services by performing a looped upate.
 
 mrhcore will wait for events sent by the running user application services and store

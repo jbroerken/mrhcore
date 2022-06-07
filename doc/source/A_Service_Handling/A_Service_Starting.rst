@@ -18,12 +18,12 @@ service package.
 
 Process Setup
 -------------
-The process setup performed for the user application service to launch is always 
+The process setup performed for a user application service to launch is always 
 done the same way:
 
 .. note:: 
 
-    Some steps (like event limits) are handled by the :doc:`service pool <Permissions>`.
+    Some steps (like event limits) are handled by the :doc:`service pool <A_Service_Pool>`.
 
 
 .. image:: A_Service_Starting.svg

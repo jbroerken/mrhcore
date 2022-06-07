@@ -1,7 +1,7 @@
 ****************************
 Application Service Handling
 ****************************
-User application servicess are handled by mrhcore with the help of a user 
+User application services are handled by mrhcore with the help of a user 
 application service parent. mrhcore starts each user application service 
 and supplies them with required functionality like IPC mechanisms for a 
 successfull operation. Application servicess are then updated until the 
@@ -14,7 +14,7 @@ service.
 .. note::
 
     All application services and the pool itself run on their own individual 
-    thread.
+    threads.
     
 
 .. toctree::
