@@ -8,10 +8,9 @@
 # About
 ##
 
-The mrhcore project provides the MRH platform core which is the cental point for the MRH platform.
-MRH core handles event communication, start platform and application services, handles user applications and 
-handles permissions and password protection.
-All event communication methods as well as event recognition and routing are supplied by MRH core.
+The mrhcore project provides the MRH platform core, which is the cental point for the MRH platform.
+MRH core handles event communication, starting platform and application services, handles user 
+applications, permissions, password protection and more.
 
 
 ##
