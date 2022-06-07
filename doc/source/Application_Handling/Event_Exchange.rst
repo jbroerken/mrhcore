@@ -80,14 +80,15 @@ Exchanging Events
 mrhcore exchanges events between the running user application and available 
 platform services by performing a looped upate.
 
+.. note::
+
+    The number of events sent and received is limited by the event limits set in the 
+    :doc:`core configuration <../Configurations/Core_Configuration>`.
+
+
 mrhcore will first wait for events sent by the running user application and stores 
 them until they are able to be given to the platform services they are intended 
 for. 
-
-.. note:: 
-
-    There is no guarantee that all events are received completely in one update.
-    
 
 Sending events to the user application happens after events were either received or 
 the timeout for receiving events expired. The core will send all events received from 
@@ -97,7 +98,3 @@ platform services which were added between the last send and the current send.
 
     Events are sent in the order they were added to the send queue. Sending will 
     stop if the current event to send failed to do so.
-
-
-The number of events sent and received is limited by the event limits set in the 
-:doc:`core configuration <../Configurations/Core_Configuration>`.

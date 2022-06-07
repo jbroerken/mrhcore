@@ -48,6 +48,6 @@ are performed for the following reasons:
 
 Failing to Launch
 -----------------
-The behaviour for a failed platform service launch depends on the platform service type. 
+The behaviour for a failed platform service launch depends on the :doc:`platform service type <P_Service_Types>`. 
 Non-essential platform services are ignored, while essential services cause mrhcore to 
 terminate. 
