@@ -38,26 +38,33 @@ specifc user application event.
 Exchanging Events
 -----------------
 mrhcore exchanges events between the running user application, user application services 
-and available platform services by performing a looped upate.
+and available platform services by communicating with the platform service pool, which 
+internally distributes events to send and collects received events from platform services.
 
-mrhcore will receive events from platform services intended for the running user application 
-by retrieving the events of the services stores in the platform service pool. The events sent 
-by all services are collected in one go and given to the user application as a combined group.
-
-.. note:: 
-
-    The order in which events are received from platform services is not guaranteed.
-    
-
-mrhcore will wait for events sent by the running user application and services and store
-them until they are able to be given to the platform services they are intended for. 
-The events are then given to the matching platform services depending on the user event 
-route used by the platform service.
+The platform service pool itself waits for the individual services to notify it of any 
+received events. Being notified of received events will cause the service pool to check 
+all services for events to collect. The service pool also distributes the events to be 
+sent to platform services by using the event routes and events available. 
 
 .. note:: 
 
-    The order in which events are given to platform services is not guaranteed.
-    
-    
-The number of events sent and received is limited by the event limits set in the 
-:doc:`core configuration <../Configurations/Core_Configuration>`.
+    The order in which events are given to and received from platform services is 
+    not guaranteed.
+
+
+.. image:: Event_Exchange_P.svg
+   :align: center
+
+
+Each service updates itself independently from the platform service pool. The services wait 
+and receive events from the service processes and then send events stored to send.
+The services notify the service pool of events received by themselves.
+
+.. image:: Event_Exchange_S.svg
+   :align: center
+
+
+.. note::
+
+    The number of events sent and received for each service is limited by the 
+    event limits set in the :doc:`core configuration <../Configurations/Core_Configuration>`.

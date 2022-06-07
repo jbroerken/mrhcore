@@ -6,11 +6,11 @@ a event queue provided by mrhcore. The core receives events from a
 user application service to hand to matching platform services.
 
 mrhcore will also check if events are allowed to sent by the current 
-application service based on the application permissions and more.
+application service based on the application permissions and event type.
 
 Each update is limited by both timeout and number of events. mrhcore 
-keeps track of those limitations and updates the event exchange by 
-those limits.
+keeps track of those limitations with the service pools and updates 
+the event exchange by those limits.
 
 .. warning::
 
@@ -46,21 +46,34 @@ applications.
 
 Exchanging Events
 -----------------
-mrhcore exchanges events between running user application services and available 
-platform services by performing a looped upate.
+mrhcore exchanges events between the running user application services and available platform 
+services by communicating with the user application service service pool, which collects received 
+events from application services.
 
-mrhcore will wait for events sent by the running user application services and store
-them until they are able to be given to the platform services they are intended 
-for. 
+The application service pool itself waits for the individual services to notify it of any 
+received events. Being notified of received events will cause the service pool to check 
+all services for events to collect.
 
 .. note:: 
 
-    There is no guarantee that all events are received completely in one update.
-    
+    The order in which events are received from user application services is 
+    not guaranteed.
 
-Receiving events from platform services is not allowed for user application services. 
-mrhcore will not add events to a queue going to the user application services and will 
-also not attempt to send anything.
 
-The number of events sent and received is limited by the event limits set in the 
-:doc:`core configuration <../Configurations/Core_Configuration>`.
+.. image:: Event_Exchange_P.svg
+   :align: center
+
+
+Each service updates itself independently from the application service pool. The services wait 
+and receive events from the user application service parent processes. The services then notify 
+the service pool of events received by themselves.
+
+.. image:: Event_Exchange_S.svg
+   :align: center
+
+
+.. note::
+
+    The number of events sent and received for each service is limited by the 
+    event limits set in the :doc:`core configuration <../Configurations/Core_Configuration>`.
+
