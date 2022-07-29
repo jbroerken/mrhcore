@@ -141,6 +141,8 @@ private:
     std::ofstream f_LogFile;
     std::ofstream f_BacktraceFile;
     
+    size_t us_Lines;
+    
 protected:
     
 };

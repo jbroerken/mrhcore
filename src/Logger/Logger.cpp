@@ -37,13 +37,16 @@
 #ifndef MRH_LOGGER_PRINT_CLI
     #define MRH_LOGGER_PRINT_CLI 0
 #endif
+#ifndef MRH_LOGGER_LINE_LIMIT
+    #define MRH_LOGGER_LINE_LIMIT 1000
+#endif
 
 
 //*************************************************************************************
 // Constructor / Destructor
 //*************************************************************************************
 
-Logger::Logger() noexcept
+Logger::Logger() noexcept : us_Lines(0)
 {
     f_LogFile.open(MRH_CORE_LOG_FILE_PATH, std::ios::out | std::ios::trunc);
     f_BacktraceFile.open(MRH_CORE_BACKTRACE_FILE_PATH, std::ios::out | std::ios::trunc);
@@ -92,6 +95,25 @@ void Logger::Log(LogLevel e_Level, std::string s_Message, std::string s_File, si
 {
     c_Mutex.lock();
     
+    // Reopen with truncate?
+    if (us_Lines == MRH_LOGGER_LINE_LIMIT)
+    {
+        f_LogFile.close();
+        f_LogFile.open(MRH_CORE_LOG_FILE_PATH, std::ios::out | std::ios::trunc);
+        
+        if (f_LogFile.is_open() == true)
+        {
+            f_LogFile << "[Logger.cpp][" << __LINE__ << "][INFO]: Truncated log file." << std::endl;
+            us_Lines = 0;
+        }
+    }
+    else
+    {
+        // Limit not reached, add
+        us_Lines += 1;
+    }
+    
+    // Now write
     if (f_LogFile.is_open() == true)
     {
         f_LogFile << "[" << s_File << "][" << std::to_string(us_Line) << "][" << GetLevelString(e_Level) << "]: " << s_Message << std::endl;

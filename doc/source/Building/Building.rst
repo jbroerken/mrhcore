@@ -41,6 +41,8 @@ of the target use case.
       - The full path to the backtrace file to use.
     * - MRH_LOGGER_PRINT_CLI
       - If logging should be printed on the cli.
+    * - MRH_LOGGER_LINE_LIMIT
+      - The max amount of lines allowed in a log file.
     * - MRH_CORE_EVENT_LOG_FILE_PATH
       - The full path to the event exchange log file to 
         use.

@@ -27,7 +27,7 @@ set(CMAKE_CXX_STANDARD 14)
 #  ------------
 #  General simple information about our project.
 ###
-project(mrhcore VERSION 1.0.0
+project(mrhcore VERSION 1.0.1
                 DESCRIPTION "MRH core platform executable"
                 LANGUAGES CXX)
 
@@ -195,6 +195,7 @@ target_link_libraries(mrhcore PUBLIC mrhvt)
 target_compile_definitions(mrhcore PRIVATE MRH_CORE_LOG_FILE_PATH="/var/log/mrh/mrhcore.log")
 target_compile_definitions(mrhcore PRIVATE MRH_CORE_BACKTRACE_FILE_PATH="/var/log/mrh/bt_mrhcore.log")
 target_compile_definitions(mrhcore PRIVATE MRH_LOGGER_PRINT_CLI=0)
+target_compile_definitions(mrhcore PRIVATE MRH_LOGGER_LINE_LIMIT=1000)
 target_compile_definitions(mrhcore PRIVATE MRH_CORE_EVENT_LOG_FILE_PATH="/var/log/mrh/ev_mrhcore.log")
 target_compile_definitions(mrhcore PRIVATE MRH_EVENT_LOGGER_PRINT_CLI=0)
 target_compile_definitions(mrhcore PRIVATE MRH_CORE_EVENT_LOGGING=0)
