@@ -36,6 +36,10 @@
 #include "./Revision.h"
 
 // Pre-defined
+#ifndef MRH_CORE_DAEMON_MODE
+    #define MRH_CORE_DAEMON_MODE 0
+#endif
+
 namespace
 {
     // Signal
@@ -71,6 +75,7 @@ extern "C"
                 
             case SIGTERM:
             case SIGHUP:
+            case SIGINT:
                 i_LastSignal = i_Signal;
                 break;
                 
@@ -80,6 +85,62 @@ extern "C"
         }
     }
 }
+
+//*************************************************************************************
+// Daemon
+//*************************************************************************************
+
+#if MRH_CORE_DAEMON_MODE > 0
+static int Daemonize() noexcept
+{
+    pid_t s32_Pid = 0;
+    
+    // First fork to leave parent
+    if ((s32_Pid = fork()) < 0)
+    {
+        return -1;
+    }
+    else if (s32_Pid > 0)
+    {
+        // Parent exit
+        exit(EXIT_SUCCESS);
+    }
+    
+    // Set session id
+    if (setsid() < 0)
+    {
+        return -1;
+    }
+    
+    // Ignore child signal
+    signal(SIGCHLD, SIG_IGN);
+    
+    // Second fork to attach to proccess 1
+    if ((s32_Pid = fork()) < 0)
+    {
+        return -1;
+    }
+    else if (s32_Pid > 0)
+    {
+        // Parent exit
+        exit(EXIT_SUCCESS);
+    }
+    
+    // Set new file permissions
+    umask(0);
+    
+    // Return to root
+    chdir("/");
+    
+    // in, out and error to NULL
+    stdin = fopen("/dev/null", "r");
+    stdout = fopen("/dev/null", "w+");
+    stderr = fopen("/dev/null", "w+");
+    
+    // Child success
+    return 0;
+}
+#endif
 
 //*************************************************************************************
 // Directories
@@ -239,6 +300,17 @@ static void LoadStaticConfiguration() noexcept
 
 int main(int argc, char* argv[])
 {
+    // Daemonize
+#if MRH_CORE_DAEMON_MODE > 0
+    if (Daemonize() < 0)
+    {
+        Logger::Singleton().Log(Logger::ERROR, "Failed to daemonize!", 
+                                "Main.cpp", __LINE__);
+        
+        return EXIT_FAILURE;
+    }
+#endif
+    
     // Log Setup
     Logger& c_Logger = Logger::Singleton();
     c_Logger.Log(Logger::INFO, "=============================================", "Main.cpp", __LINE__);
@@ -252,6 +324,7 @@ int main(int argc, char* argv[])
     std::signal(SIGFPE, SignalHandler);
     std::signal(SIGABRT, SignalHandler);
     std::signal(SIGSEGV, SignalHandler);
+    std::signal(SIGINT, SignalHandler);
     std::signal(SIGHUP, SignalHandler);
     
     // Create run directories

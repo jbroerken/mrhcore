@@ -11,3 +11,7 @@
 1.0.1:
 ------
 - Truncate log files on line limit.
+
+1.0.2:
+------
+- Add daemon mode.

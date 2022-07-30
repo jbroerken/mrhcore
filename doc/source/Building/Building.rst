@@ -43,6 +43,8 @@ of the target use case.
       - If logging should be printed on the cli.
     * - MRH_LOGGER_LINE_LIMIT
       - The max amount of lines allowed in a log file.
+    * - MRH_CORE_DAEMON_MODE
+      - If mrhcore should be started as a daemon.
     * - MRH_CORE_EVENT_LOG_FILE_PATH
       - The full path to the event exchange log file to 
         use.
