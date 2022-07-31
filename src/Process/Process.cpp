@@ -72,7 +72,9 @@ void Process::Run(std::string s_BinaryPath, std::vector<std::vector<char>> v_Arg
     {
         Logger::Singleton().Log(Logger::INFO, "Starting process " +
                                               s_BinaryPath +
-                                              ":",
+                                              " (" +
+                                              std::to_string(s32_ProcessID) + 
+                                              "):",
                                 "Process.cpp", __LINE__);
         
         // Add binary path
@@ -101,7 +103,9 @@ void Process::Run(std::string s_BinaryPath, std::vector<std::vector<char>> v_Arg
         // Child, Start launcher
         if (execv(s_BinaryPath.c_str(), p_Arg) < 0)
         {
-            Logger::Singleton().Log(Logger::ERROR, "Run failed: " +
+            Logger::Singleton().Log(Logger::ERROR, "Run failed for process " +
+                                                   std::to_string(s32_ProcessID) +
+                                                   ": " +
                                                    std::string(std::strerror(errno)) +
                                                    " (" + std::to_string(errno) +
                                                    ")!",
@@ -148,6 +152,7 @@ void Process::Stop(bool b_Force) noexcept
     }
     
     Logger::Singleton().Log(Logger::INFO, "Terminating currently running process" +
+                                          std::to_string(s32_ProcessID) + 
                                           std::string(b_Force ? " (forced)." : "."),
                             "Process.cpp", __LINE__);
     
@@ -171,7 +176,10 @@ void Process::GetProcessState(bool& b_Running, int& i_Result) noexcept
         {
             // Error
             s32_ProcessID = -1;
-            Logger::Singleton().Log(Logger::WARNING, "Could not get child process status!", "Process.cpp", __LINE__);
+            Logger::Singleton().Log(Logger::WARNING, "Could not get child process status for process " +
+                                                     std::to_string(s32_ProcessID) + 
+                                                     "!", 
+                                    "Process.cpp", __LINE__);
             
             b_Running = false;
             i_Result = -1;
